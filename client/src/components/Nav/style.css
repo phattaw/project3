@@ -1,0 +1,12 @@
+.nav-link {
+    background : none;
+    float:right;
+    font-size: 1.125em;
+    margin-left: 10em;
+    width:45%;
+}
+
+.show>.dropdown-menu {
+    display: block;
+    position: absolute;
+  }
