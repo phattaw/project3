@@ -1,4 +1,4 @@
-.nav-link {
+.nav-link, {
     background : none;
     float:right;
     font-size: 1.125em;
@@ -6,7 +6,12 @@
     width:45%;
 }
 
-.show>.dropdown-menu {
-    display: block;
-    position: absolute;
-  }
+
+#dropdown-basic-button {
+    background : none;
+    color : black;
+    float:right;
+    font-size: 1.125em;
+    margin-left: 10em;
+    width:45%;
+}
