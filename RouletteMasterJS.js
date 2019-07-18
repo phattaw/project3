@@ -1,6 +1,7 @@
 "use strict";
 
-var $ = function (id) {
+//var $ = function (id) {
+function $(id) {
     return document.getElementById(id);
 }
 
@@ -24,6 +25,12 @@ var topNumbersArray = [];
 var winningArray = [];
 var arraySlice = [];
 var countWinnersArray = [];
+var recentHitsSorted = [];
+var recentHitsReSorted = [];
+var moneyWinnersArray = [];
+var hitStreaksReSorted = [];
+//wheelSpinNumber sets the number of spins which is used in various functions
+var wheelSpinNumber = 10000;
 
 //This function uses the Math.random method to simulate each spin of the roulette wheel.  
 //The parameter topNum sets the upper limit of the range.  In this case, it's 38 the number
@@ -43,11 +50,9 @@ function runProg() {
     afterClone();
     countWinners();
     spinsSinceWin();
-
-    //$("messageFour").innerHTML = "The minimum number of rolls was " + rollMin + "<br><br>";
-    //$("messageThree").innerHTML = "Total Iterations of random numbers until equality equals " + turnCount + "<br><br>";
-    //$("messageTwo").innerHTML = "Total Rolls equal " + rollTotal + "<br><br>";
-    //$("message").innerHTML = printOut;
+    recentHits();
+    hitStreaks();
+    moneyWinners();
 }
 
 //This function spins the roulette wheel the specified number of times and 1) pushes the result to the
@@ -65,17 +70,26 @@ function createSpinArray() {
         winningNumbers.unshift(wheelSpin);
         //Note that I'm using unshift() because each spin goes to the beginning of the array
         spinCounter++;
-        numbersConcat += ("<br>" + wheelSpin);
+        //numbersConcat += ("<br>" + wheelSpin);
     }
 
-    while (spinCounter < 1000);
-    $("message").innerHTML = "MESSSAGE 2- The array of winning numbers is " + winningNumbers.join("<br>") + "<br><br>";
+    while (spinCounter < wheelSpinNumber);
+    var top100Numbers = [];
+    //for(var i =0; i < 100; i++){
+        top100Numbers= winningNumbers.slice(0,100);
+    //}
+    console.log("The last 100 winning numbers are " + winningNumbers.slice(0,100));
+    //$("message").innerHTML = "MESSSAGE 1- The last 100 winning numbers are <br>" + top100Numbers.join("<br>");
 }
 
 
 function numberSort(x, y) {
     return x - y;
    // return y - x;
+}
+
+function numberSort2(x, y) {
+    return y - x;
 }
 
 function sortSpinArray() {
@@ -89,7 +103,7 @@ function sortSpinArray() {
     sortedNumbers = [...winningNumbers];
     sortedNumbers.sort(numberSort);
     //console.log("After sorting the winning numbers array is " + sortedNumbers);
-    //$("messageTwo").innerHTML = "MESSAGE 1 - The winning numbers sorted are " + sortedNumbers.join("<br>");
+    //$("messageTwo").innerHTML = "MESSAGE 2 - The winning numbers sorted are <br>" + sortedNumbers.join("<br>");
 }
 function topNumbers() {
     var startSlice = 0;
@@ -97,7 +111,7 @@ function topNumbers() {
     //second element in the array.
     //const sortedNumbers = [...winningNumbers];
     //sortedNumbers.sort(numberSort);
-    console.log("The length of sortedNumbers is " + sortedNumbers.length);
+    //console.log("The length of sortedNumbers is " + sortedNumbers.length);
     for (var k = 1; k < sortedNumbers.length; k++) {
         if ((sortedNumbers[k] !== sortedNumbers[k - 1])) {
             //console.log("the end of the string for slice is " + k);
@@ -109,7 +123,7 @@ function topNumbers() {
             //console.log("the startSlice used in slice method is " + startSlice);
             //console.log("arrayLength used in slice method is " + arrayLength);
             // console.log("sorted numbers array is " + sortedNumbers.toString());
-            console.log("startSlice is " + startSlice + " and k is " + k);
+            //console.log("startSlice is " + startSlice + " and k is " + k);
             arraySlice = sortedNumbers.slice(startSlice, k);
 
             //console.log("Array Slice is " + arraySlice);
@@ -124,7 +138,7 @@ function topNumbers() {
             //startingIndex = sortedNumbers[k];
         }
         if (k + 1 === (sortedNumbers.length)) {
-            console.log(startSlice, k);
+            //console.log(startSlice, k);
             arraySlice = sortedNumbers.slice(startSlice, k);
             topNumbersArray.push(arraySlice);
         }
@@ -133,9 +147,9 @@ function topNumbers() {
     //for (var l = 0; l < topNumbersArray.length; l++){
     //console.log("The next element of topNumbersArray is " + topNumbersArray[l]);
     //}
-    console.log("top numbers array is ", topNumbersArray);
+    //console.log("top numbers array is ", topNumbersArray);
 
-    console.log("The length of the arrays array topNumbersArray is " + topNumbersArray.length);
+    //console.log("The length of the arrays array topNumbersArray is " + topNumbersArray.length);
     //$("messageThree").innerHTML = "MESSAGE 3- The elements of the TopNumbers array is " + topNumbersArray.join("<br>");
     //topNumbersArray;
 }
@@ -145,12 +159,13 @@ function afterClone() {
 }
 function countWinners() {
     for (var n = 0; n < topNumbersArray.length; n++) {
-        console.log("the number of winners in " + n + " is " + topNumbersArray[n].length);
+        //console.log("the number of winners in " + n + " is " + topNumbersArray[n].length);
         countWinnersArray.push(topNumbersArray[n].length);
     }
-    console.log("countWinners array is ", countWinnersArray);
-    console.log("The length of countWinners array is ", countWinnersArray.length);
-    $("messageFive").innerHTML = "MESSAGE 5- The number of winners from 0 to 37 is " + countWinnersArray.join("<br>");
+    //console.log("countWinners array is ", countWinnersArray);
+    //console.log("The length of countWinners array is ", countWinnersArray.length);
+    //$("messageFive").innerHTML = "MESSAGE 5- The number of winners countWinnersArray from 0 to 37 is <br>" + 
+    //countWinnersArray.join("<br>");
 }
 
 function spinsSinceWin() {
@@ -162,6 +177,61 @@ function spinsSinceWin() {
     }
     $("messageSix").innerHTML = spinsSinceWinMsg;
 }
+
+function recentHits(){
+    //var jimWin;
+    var recentHitsArray = [];
+    function jimWinObject(winNumber, totalWins)	{
+	    this.winNumber = winNumber;
+	    this.totalWins = totalWins;
+    };
+    for (var i = 0; i < 38; i++){
+        //var winSpin= winningNumbers.indexOf(i);
+        recentHitsArray[i] = new jimWinObject(i, countWinnersArray[i]);
+    }    
+    recentHitsSorted = [...recentHitsArray].sort((x,y)=> numberSort2(x.totalWins, y.totalWins));
+    //console.log("recentHitsArray is ", recentHitsArray);
+    console.log("recentHitsSorted is ", recentHitsSorted);
+}
+
+function hitStreaks(){
+    var hitStreaksArray =[];
+    var hitStreaksSorted = [];
+    function jimStreakObject(index, lastHit){
+        this.indexNumber = index;
+        this.lastHit = lastHit;
+    }
+    for (var i = 0; i < 38; i++){
+        hitStreaksArray[i] = new jimStreakObject(i, winningNumbers.indexOf(i));
+        console.log(winningNumbers.indexOf(i));
+    } 
+    console.log("hitStreaksArray is ", hitStreaksArray);
+    //console.log("The hit streak array is", hitStreaksArray)
+    hitStreaksSorted = [...hitStreaksArray].sort((x,y) => numberSort(x.lastHit,y.lastHit));
+    console.log("hitStreaksSorted with index and last hit is ", hitStreaksSorted);
+}
+
+function moneyWinners(){
+    var i = 0;
+    var moneyWinnersSorted = [];
+    //console.log(recentHitsSorted[0].totalWins);
+    console.log("recentHitsSorted is ", recentHitsSorted);
+    var hank = wheelSpinNumber/35;
+    console.log(hank);
+    console.log(recentHitsSorted);
+    while (recentHitsSorted[i].totalWins > hank){
+        console.log(recentHitsSorted[i]);
+        moneyWinnersArray.push(recentHitsSorted[i]);
+        i++;
+    }
+    console.log(moneyWinnersArray);
+    moneyWinnersSorted = moneyWinnersArray.map(x =>{
+        var moneyWinString = (x.winNumber+ " had total hits of "+ x.totalWins  + " in the last " + wheelSpinNumber+ " spins.");
+        return moneyWinString;
+    })
+    $("messageNine").innerHTML = "There were " + moneyWinnersSorted.length + " winners. They are: <br>" +  moneyWinnersSorted.join("<br>");
+}
+
 
 window.onload = function () {
     $("spinWheel").onclick = runProg;
