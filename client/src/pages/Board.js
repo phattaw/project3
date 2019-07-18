@@ -3,11 +3,9 @@ import DeleteBtn from "../components/DeleteBtn";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../components/Grid";
-import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
-import { H1 } from "../components/H1";
-import { TableRow } from "../components/TableRow";
+import { Container } from "../components/Grid";
+import { TableRow, FinalTableRow } from "../components/TableRow";
+import { ZerosRow } from "../components/ZerosRow";
 
 const defaultImages = [
   "../../images/lightning.jpg",
@@ -35,33 +33,37 @@ class Tiles extends Component {
 
   loadTiles = () => {
     let rows = [];
-    this.state.currentTiles = [];
+    let status = [];
+
+    // this.state.initInfo = [];
+    // this.state.currentTiles = [];
 
     for(let i = 0; i < 12; i++) {
-      rows.push({ id: i*3, clicked: false, image: "defaultImages[i]", clickTile: this.clickTile });
+      rows.push({ id: i*3, image: "defaultImages[i]", clickTile: this.clickTile });
     }
 
-    this.setState({ currentTiles: rows });
+    for(let i = 0; i < 200; i++) {
+      status.push({ clicked: false });
+    }
+
+    // this.setState({ initInfo: rows, currentTiles: currentTiles });
+    this.setState({ currentTiles: rows, status: status });
   };
 
   clickTile = id => {
-    console.log(`clickTile currentTile: ${id}`)
-
-    this.state.currentTiles[id].hilited = !this.state.currentTiles[id].hilited;
-
-    console.log(`hilited: ${this.state.currentTiles[id].hilited}`);
-
+    this.state.status[id - 1].clicked = !this.state.status[id - 1].clicked;
   };
 
   render() {
     return (
       <Container fluid>
+        <ZerosRow key={0} clickTile={this.clickTile} tileId={36}></ZerosRow>
         {this.state.currentTiles.map(tile => 
           (
           <TableRow key={tile.id} clickTile={tile.clickTile} tileId={tile.id}></TableRow>
           )
         )}
-
+        <FinalTableRow tileId={38}></FinalTableRow>
       </Container>
     );
   }
