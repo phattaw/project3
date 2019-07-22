@@ -1,0 +1,17 @@
+/* .nav-link, {
+    background : none;
+    float:right;
+    font-size: 1.125em;
+    margin-left: 10em;
+    width:45%;
+} */
+
+
+#dropdown-basic-button {
+    background : none;
+    display: flex;
+    color : black;
+    font-size: 1.125em;
+    margin-right: 13em;
+    width:45%;
+}
