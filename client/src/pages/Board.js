@@ -7,21 +7,6 @@ import { Container } from "../components/Grid";
 import { TableRow, FinalTableRow } from "../components/TableRow";
 import { ZerosRow } from "../components/ZerosRow";
 
-const defaultImages = [
-  "../../images/lightning.jpg",
-  "../../images/dirtsquare.jpg",
-  "../../images/redPanda.jpg",
-  "../../images/redFox.jpg",
-  "../../images/waryDog.jpg",
-  "../../images/stitch.jpg",
-  "../../images/rastaHomer.png",
-  "../../images/sadSpongeBob.jpg",
-  "../../images/falloutBoy.png",
-  "../../images/heart.png",
-  "../../images/fedex.jpg",
-  "../../images/oxford.jpg"  
-]
-
 class Tiles extends Component {
   state = {
     currentTiles: []
@@ -35,18 +20,14 @@ class Tiles extends Component {
     let rows = [];
     let status = [];
 
-    // this.state.initInfo = [];
-    // this.state.currentTiles = [];
-
     for(let i = 0; i < 12; i++) {
-      rows.push({ id: i*3, image: "defaultImages[i]", clickTile: this.clickTile });
+      rows.push({ id: i*3, clickTile: this.clickTile });
     }
 
     for(let i = 0; i < 200; i++) {
       status.push({ clicked: false });
     }
 
-    // this.setState({ initInfo: rows, currentTiles: currentTiles });
     this.setState({ currentTiles: rows, status: status });
   };
 
@@ -56,14 +37,16 @@ class Tiles extends Component {
 
   render() {
     return (
-      <Container fluid>
+      <Container fluid  >
+        <div style={{ lineHeight: "2.5" }} >
         <ZerosRow key={0} clickTile={this.clickTile} tileId={36}></ZerosRow>
         {this.state.currentTiles.map(tile => 
           (
           <TableRow key={tile.id} clickTile={tile.clickTile} tileId={tile.id}></TableRow>
           )
         )}
-        <FinalTableRow tileId={38}></FinalTableRow>
+        <FinalTableRow clickTile={this.clickTile} tileId={38}></FinalTableRow>
+        </div>
       </Container>
     );
   }
