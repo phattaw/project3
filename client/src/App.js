@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Tiles from "./pages/Tiles";
+import Board from "./pages/Board";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
@@ -11,9 +11,9 @@ function App() {
       <div>
         <Nav />
         <Switch>
-          <Route exact path="/" component={Tiles} />
-          <Route exact path="/tiles" component={Tiles} />
-          <Route exact path="/tiles/:id" component={Detail} />
+          <Route exact path="/" component={Board} />
+          <Route exact path="/Board" component={Board} />
+          <Route exact path="/Board/:id" component={Detail} />
           <Route component={NoMatch} />
         </Switch>
       </div>
