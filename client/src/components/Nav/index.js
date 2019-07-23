@@ -7,6 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 
 
+
 import {
   Collapse,
   Navbar,
@@ -38,6 +39,8 @@ export default class Example extends React.Component {
   consoleLog(event) {
        console.log(event);
       }
+
+ 
 
   render() {
     return (
@@ -89,6 +92,7 @@ export default class Example extends React.Component {
             </Nav>
           </Collapse>
         </Navbar>
+        
       </div>
     );
   }
