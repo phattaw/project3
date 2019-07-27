@@ -206,7 +206,7 @@ class App extends Component {
           </Nav>
           <Nav id="bar" className="ml-auto" navbar>
             <ReactMultiSelectCheckboxes  placeholderButtonLabel="Favorite Bet" id="bar3" options={favoriteBet} onSelectOptions={this.result} />
-            <NavbarBrand id="login" href="./Login/LoginPage">Login</NavbarBrand>
+            <NavbarBrand id="login" href="../Login/index">Login</NavbarBrand>
           </Nav>
         </Navbar>
       </div>

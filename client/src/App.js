@@ -4,6 +4,7 @@ import Board from "./pages/Board";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
+import Log from "./components/Login"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route exact path="/" component={Board} />
           <Route exact path="/Board" component={Board} />
           <Route exact path="/Board/:id" component={Detail} />
+          <Route exact path="/Login/index" component={Log} />
           <Route component={NoMatch} />
         </Switch>
       </div>

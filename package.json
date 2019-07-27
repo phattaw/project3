@@ -34,6 +34,7 @@
     "react-bootstrap-dropdown-menu": "^1.1.15",
     "react-dom": "^16.8.6",
     "react-multiselect-checkboxes": "^0.1.1",
+    "react-signup-login-component": "^1.2.0",
     "reactstrap": "^8.0.1",
     "yarn": "^1.16.0"
   }
