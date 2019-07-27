@@ -16,10 +16,10 @@ describe('the signup form', () => {
     passwordCustomLabel: 'Password',
     passwordConfirmationCustomLabel: 'Confirm password',
     recoverPasswordCustomLabel: 'Recover Password',
-    signupCustomLabel: 'Sign up',
-    submitLoginCustomLabel: 'Login',
+    signupCustomLabel: 'Signup',
+    submitLoginCustomLabel: 'Signup',
     goToLoginCustomLabel: 'Login',
-    submitSignupCustomLabel: 'Sign up',
+    submitSignupCustomLabel: 'Signup',
   };
   it('renders without crashing', () => {
     shallow(<Signup {...requiredMockProps} />);

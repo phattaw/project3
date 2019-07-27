@@ -4,7 +4,7 @@ import Board from "./pages/Board";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
-import Log from "./components/Login"
+import Log from "./Login/src"
 
 function App() {
   return (

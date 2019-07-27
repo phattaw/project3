@@ -87,7 +87,7 @@ const Login = ({
         style={Object.assign({}, localStyles.recoverPasswordWrapper, styles.recoverPasswordWrapper)}
       >
         <button
-          id="recover-password"
+          id="recorver-password"
           type="button"
           style={Object.assign({}, localStyles.recoverPassword, styles.recoverPasswordButton)}
           onClick={() => {

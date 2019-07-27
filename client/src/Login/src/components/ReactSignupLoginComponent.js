@@ -57,9 +57,9 @@ class ReactSignupLoginComponent extends React.Component {
         borderRadius: 3,
         backgroundColor: '#FAFAFA',
         margin: 10,
-        padding: 300,
+        padding: 20,
         maxWidth: '500px',
-      
+
         width: 500,
         height: 400,
         perspective: 1000,
@@ -199,7 +199,7 @@ ReactSignupLoginComponent.defaultProps = {
   recoverPasswordCustomLabel: 'Recover Password',
   goToSignupCustomLabel: 'Signup',
   goToLoginCustomLabel: 'Login',
-  submitLoginCustomLabel: 'Login',
+  submitLoginCustomLabel: 'Signup',
   submitSignupCustomLabel: 'Signup',
   submitRecoverPasswordCustomLabel: 'Recover',
 };
