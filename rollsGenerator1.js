@@ -46,8 +46,8 @@ function createSpins() {
         hits[rnd]++;
         j++
     }
-    //console.log(hits);
-    console.log(rolls);
+    console.log(hits);
+    //console.log(rolls);
 }
 //function Jerry creates an unsorted array of 38 objects consisting of a key representing a wheel number and a value representing the number of hits
 function Jerry() {
@@ -147,7 +147,7 @@ function splitWins() {
         }
     }
     for (var k = 0; k < splitWinsArray.length; k++) {
-        console.log(splitWinsArray[k].name + " " + " " + splitWinsArray[k].hits);
+        //console.log(splitWinsArray[k].name + " " + " " + splitWinsArray[k].hits);
     }
 }
 
@@ -328,6 +328,7 @@ function street(name, num1, num2, num3) {
     this.nums = [num1, num2, num3];
     this.hits = 0;
 };//three in a row
+
 function streetWins() {
     var streetWinsArray = [];
     streetWinObjects(streetWinsArray);
@@ -339,8 +340,12 @@ function streetWins() {
             }
         }
     }
+    streetWinsTotal = 0;
     for (var k = 0; k < streetWinsArray.length; k++) {
-        console.log(streetWinsArray[k].name + " " + " " + streetWinsArray[k].hits);
+        //console.log(streetWinsArray[k].name + " " + " " + streetWinsArray[k].hits);
+        streetWinsTotal+=streetWinsArray[k].hits;
+        //The console.log below veries that it works. streetWinsTotal will equal 100 minus the hits for 0 and 37
+        //console.log("StreetWinsTotal equal " +streetWinsTotal);
     }
 }
 
@@ -351,12 +356,6 @@ function streetWinObjects(streetWinsArray) {
     
     var street456 = new street("street456", 4,5,6);
     streetWinsArray.push(street456);
-    
-    var street789 = new street("street789", 7,8,9);
-    streetWinsArray.push(street789);
-    
-    var street789 = new street("street789", 7,8,9);
-    streetWinsArray.push(street789);
     
     var street789 = new street("street789", 7,8,9);
     streetWinsArray.push(street789);
@@ -376,13 +375,18 @@ function streetWinObjects(streetWinsArray) {
     var street222324 = new street("street222324", 22,23,24);
     streetWinsArray.push(street222324);
     
-    var street789 = new street("street789", 7,8,9);
-    streetWinsArray.push(street789);
+    var street252627 = new street("street252627", 25,26,27);
+    streetWinsArray.push(street252627);
     
-    var street789 = new street("street789", 7,8,9);
-    streetWinsArray.push(street789);
-
-
+    var street282930 = new street("street282930", 28,29,30);
+    streetWinsArray.push(street282930);
+    
+    var street313233 = new street("street313233", 31,32,33);
+    streetWinsArray.push(street313233);
+    
+    var street343536 = new street("street343536", 34,35,36);
+    streetWinsArray.push(street343536);
+}
 
 function corner(name, num1, num2, num3, num4) {
     this.name=name;
@@ -390,11 +394,115 @@ function corner(name, num1, num2, num3, num4) {
     this.hits = 0;
 };//four touching at a corner
 
-function basket() {
-    this.name=basket;
+function cornerWins() {
+    var cornerWinsArray = [];
+    cornerWinObjects(cornerWinsArray);
+    for (var i = 0; i < rolls.length; i++) {
+        //console.log(rolls[i]);
+        for (var j = 0; j < cornerWinsArray.length; j++) {
+            if (cornerWinsArray[j].nums.includes(rolls[i])) {
+                cornerWinsArray[j].hits++;
+            }
+        }
+    }
+    for (var k = 0; k < cornerWinsArray.length; k++) {
+        //console.log(cornerWinsArray[k].name + " " + " " + cornerWinsArray[k].hits);
+    }
+}
+
+function cornerWinObjects(cornerWinsArray) {
+    var corner1245 = new corner("corner1245", 1, 2, 4, 5);
+    cornerWinsArray.push(corner1245); 
+
+    var corner2356 = new corner("corner2356", 2,3,5,6);
+    cornerWinsArray.push(corner2356); 
+    
+    var corner4578 = new corner("corner4578", 4,5,7,8);
+    cornerWinsArray.push(corner4578);  
+    
+    var corner5689 = new corner("corner5689", 5,6,8,9);
+    cornerWinsArray.push(corner5689); 
+    
+    var corner781011 = new corner("corner781011", 7,8,10,11);
+    cornerWinsArray.push(corner781011); 
+    
+    var corner891112 = new corner("corner891112", 8,9,11,12);
+    cornerWinsArray.push(corner891112); 
+    
+    var corner10111314 = new corner("corner10111314", 10,11,13,14);
+    cornerWinsArray.push(corner10111314); 
+    
+    var corner11121415 = new corner("corner11121415", 11,12,14,15);
+    cornerWinsArray.push(corner11121415); 
+    
+    var corner13141617 = new corner("corner13141617", 13,14,16,17);
+    cornerWinsArray.push(corner13141617); 
+    
+    var corner14151718 = new corner("corner14151718", 14,15,17,18);
+    cornerWinsArray.push(corner14151718); 
+    
+    var corner16171920 = new corner("corner16171920", 16,17,19,20);
+    cornerWinsArray.push(corner16171920); 
+    
+    var corner17182021 = new corner("corner17182021", 17,18,20,21);
+    cornerWinsArray.push(corner17182021);   
+    
+    var corner19202223 = new corner("corner19202223", 19,20,22,23);
+    cornerWinsArray.push(corner19202223); 
+    
+    var corner20212324 = new corner("corner20212324", 20,21,23,24);
+    cornerWinsArray.push(corner20212324);  
+    
+    var corner22232526 = new corner("corner22232526", 22,23,25,26);
+    cornerWinsArray.push(corner22232526);   
+    
+    var corner23242627 = new corner("corner23242627", 23,24,26,27);
+    cornerWinsArray.push(corner23242627);   
+    
+    var corner25262829 = new corner("corner25262829", 25,26,28,29);
+    cornerWinsArray.push(corner25262829);   
+    
+    var corner26272930 = new corner("corner26272930", 26,27,29,30);
+    cornerWinsArray.push(corner26272930);   
+    
+    var corner28293132 = new corner("corner28293132", 28,29,31,32);
+    cornerWinsArray.push(corner28293132);  
+    
+    var corner28293132 = new corner("corner28293132", 28,29,31,32);
+    cornerWinsArray.push(corner28293132);  
+    
+    var corner29303233 = new corner("corner29303233", 29,30,32,33);
+    cornerWinsArray.push(corner29303233);  
+    
+    var corner31323435 = new corner("corner31323435", 31,32,34,35);
+    cornerWinsArray.push(corner31323435);  
+    
+    var corner32333536 = new corner("corner32333536", 32,33,35,36);
+    cornerWinsArray.push(corner32333536); 
+}
+
+function basket(name) {
+    this.name=name;
     this.nums = [0, 1, 2, 3, 37];
     this.hits = 0;
 }//the five numbers at the top
+
+function basketWins() {
+    //var cornerWinsArray = [];
+    //cornerWinObjects(cornerWinsArray);
+    var Jolie = new basket(Jolie);
+    for (var i = 0; i < rolls.length; i++) {
+        //console.log(rolls[i]);
+        //for (var j = 0; j < cornerWinsArray.length; j++) {
+            if (Jolie.nums.includes(rolls[i])) {
+                Jolie.hits++;
+            }
+        //}
+    }
+    
+        console.log("The basket of 0,00,1,2,3 had " + Jolie.hits);
+   
+}
 
 function sixLine(name, num1, num2, num3, num4, num5, num6) {
     this.name=name;
@@ -438,6 +546,9 @@ function conglomerate() {
     Jackie();
     rollUntilHit();
     splitWins();
+    streetWins();
+    cornerWins();
+    basketWins();
 }
 
 //Calls all the functions when page loads
