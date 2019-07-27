@@ -12,7 +12,7 @@ function FiftyfiftyBets( props ) {
     case 5:
       return(
         <Col border="white" size="md-2 sm-2" float="left" key={props.tileId + 54}>
-          <H1G passedOnClick={props.clickTile} tileId={props.tileId + 54} >1 to 18</H1G>
+          <H1G buttonStyle={props.buttonStyle} passedOnClick={props.clickTile} tileId={41} >1 to 18</H1G>
         </Col>
         );
     case 6:
@@ -23,7 +23,7 @@ function FiftyfiftyBets( props ) {
     case 11:
       return(
         <Col border="white" size="md-2 sm-2" float="left" key={props.tileId + 55}>
-          <H1G passedOnClick={props.clickTile} tileId={props.tileId + 55} >Even</H1G>
+          <H1G buttonStyle={props.buttonStyle}  passedOnClick={props.clickTile} tileId={42} >Even</H1G>
         </Col>
         );
     case 12:
@@ -33,8 +33,8 @@ function FiftyfiftyBets( props ) {
     case 16:
     case 17:  
       return(
-        <Col border="white" size="md-2 sm-2" float="left" key={props.tileId + 55}>
-          <H1G passedOnClick={props.clickTile} tileId={props.tileId + 55} >Red</H1G>
+        <Col border="white" size="md-2 sm-2" float="left" key={props.tileId + 56}>
+          <H1G buttonStyle={props.buttonStyle}  passedOnClick={props.clickTile} tileId={43} >Red</H1G>
         </Col>
       );
     case 18:
@@ -44,8 +44,8 @@ function FiftyfiftyBets( props ) {
     case 22:
     case 23:  
       return(
-        <Col border="white" size="md-2 sm-2" float="left" key={props.tileId + 55}>
-          <H1G passedOnClick={props.clickTile} tileId={props.tileId + 55} >Black</H1G>
+        <Col border="white" size="md-2 sm-2" float="left" key={props.tileId + 57}>
+          <H1G buttonStyle={props.buttonStyle}  passedOnClick={props.clickTile} tileId={44} >Black</H1G>
         </Col>
       );
     case 24:
@@ -55,14 +55,14 @@ function FiftyfiftyBets( props ) {
     case 28:
     case 29:  
       return(
-          <Col border="white" size="md-2 sm-2" float="left" key={props.tileId + 55}>
-            <H1G passedOnClick={props.clickTile} tileId={props.tileId + 55} >Odd</H1G>
+          <Col border="white" size="md-2 sm-2" float="left" key={props.tileId + 58}>
+            <H1G buttonStyle={props.buttonStyle}  passedOnClick={props.clickTile} tileId={45} >Odd</H1G>
           </Col>
         );
     default:
       return(
-        <Col border="white" size="md-2 sm-2" float="left" key={props.tileId + 54}>
-          <H1G passedOnClick={props.clickTile} tileId={props.tileId + 54} >19 to 36</H1G>
+        <Col border="white" size="md-2 sm-2" float="left" key={props.tileId + 59}>
+          <H1G buttonStyle={props.buttonStyle}  passedOnClick={props.clickTile} tileId={46} >19 to 36</H1G>
         </Col>
         );
   }
@@ -70,20 +70,34 @@ function FiftyfiftyBets( props ) {
 
 //export function H1({ tileId, passedOnClick, children }) {
 export function TableRow( props ) {
-    return (
+  let text = "1 in 12";
+  let twelveId = props.tileId;
+
+  if(props.tileId < 12) {
+    text = "1st 12";
+    twelveId = 46;
+  } else if(props.tileId < 24) {
+    text = "2nd 12";
+    twelveId = 47;
+  } else {
+    text = "3rd 12";
+    twelveId = 48;
+  }
+
+  return (
     <Row justifyContentCenter className="row-no-gutters">
-        <FiftyfiftyBets clickTile={props.clickTile} tileId={props.tileId} />
-        <Col border="white" size="md-2 sm-2" float="left" key={props.tileId + 55}>
-          <H1G passedOnClick={props.clickTile} tileId={props.tileId + 55} >1 in 12</H1G>
+        <FiftyfiftyBets buttonStyle={props.buttonStyle} clickTile={props.clickTile} tileId={props.tileId} />
+        <Col border="white" size="md-2 sm-2" float="left" key={props.tileId + 60}>
+          <H1G buttonStyle={props.buttonStyle} passedOnClick={props.clickTile} tileId={twelveId} >{text}</H1G>
         </Col>
         <Col size="md-2 sm-2" float="left" key={props.tileId}>
-          <H1 passedOnClick={props.clickTile} tileId={props.tileId + 1} >{props.tileId + 1}</H1>
+          <H1 buttonStyle={props.buttonStyle} passedOnClick={props.clickTile} tileId={props.tileId + 1} >{props.tileId + 1}</H1>
         </Col>
         <Col size="md-2 sm-2" float="left" key={props.tileId + 1}>
-          <H1 passedOnClick={props.clickTile} tileId={props.tileId + 2} >{props.tileId + 2}</H1>
+          <H1 buttonStyle={props.buttonStyle} passedOnClick={props.clickTile} tileId={props.tileId + 2} >{props.tileId + 2}</H1>
         </Col>
         <Col size="md-2 sm-2" float="left" key={props.tileId + 2}>
-          <H1 passedOnClick={props.clickTile} tileId={props.tileId + 3} >{props.tileId + 3}</H1>
+          <H1 buttonStyle={props.buttonStyle} passedOnClick={props.clickTile} tileId={props.tileId + 3} >{props.tileId + 3}</H1>
         </Col>        
     </Row>
     );
@@ -92,16 +106,16 @@ export function TableRow( props ) {
 export function FinalTableRow( props ) {
   return (
   <Row justifyContentCenter className="row-no-gutters">
-      <Col size="md-2 sm-2" float="left" key={props.tileId + 54}></Col>
-      <Col size="md-2 sm-2" float="left" key={props.tileId + 55}></Col>
+      <Col size="md-2 sm-2" float="left" key={props.tileId + 61}></Col>
+      <Col size="md-2 sm-2" float="left" key={props.tileId + 62}></Col>
       <Col size="md-2 sm-2" float="left" key={props.tileId}>
-        <H1G passedOnClick={props.clickTile} tileId={props.tileId + 1} >2 to 1</H1G>
+        <H1G buttonStyle={props.buttonStyle} passedOnClick={props.clickTile} tileId={props.tileId + 1} >2 to 1</H1G>
       </Col>
       <Col size="md-2 sm-2" float="left" key={props.tileId + 1}>
-        <H1G passedOnClick={props.clickTile} tileId={props.tileId + 2} >2 to 1</H1G>
+        <H1G buttonStyle={props.buttonStyle} passedOnClick={props.clickTile} tileId={props.tileId + 2} >2 to 1</H1G>
       </Col>
       <Col size="md-2 sm-2" float="left" key={props.tileId + 2}>
-        <H1G passedOnClick={props.clickTile} tileId={props.tileId + 3} >2 to 1</H1G>
+        <H1G buttonStyle={props.buttonStyle} passedOnClick={props.clickTile} tileId={props.tileId + 3} >2 to 1</H1G>
       </Col>
   </Row>
   );
