@@ -10,7 +10,7 @@ import ReactSignupLoginComponent from './components/ReactSignupLoginComponent';
 
 import './index.css';
 
-const Log = () => {
+const App = () => {
   const signupWasClickedCallback = (data) => {
     console.log(data);
     alert('Signup callback, see log on the console to see the data.');
@@ -35,6 +35,6 @@ const Log = () => {
   );
 };
 
-ReactDOM.render(<Log />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 
-export default Log;
+export default App;

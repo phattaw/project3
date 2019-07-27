@@ -17,7 +17,7 @@ describe('the login form', () => {
     passwordConfirmationCustomLabel: 'Confirm password',
     recoverPasswordCustomLabel: 'Recover Password',
     goToSignupCustomLabel: 'Signup',
-    submitLoginCustomLabel: 'Signup',
+    submitLoginCustomLabel: 'Login',
   };
   it('renders without crashing', () => {
     shallow(<Login {...requiredMockProps} />);

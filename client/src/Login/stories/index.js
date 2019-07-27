@@ -39,7 +39,7 @@ storiesOf('React signup login component', module)
   .add('to signup with custom title', () => (
     <ReactSignupLoginComponent
       isLogin={false}
-      title="My awesome company"
+      title="Roulette"
       handleSignup={(data) => {
         console.log(data);
         alert('Signup callback, see log on the console to see the data.');

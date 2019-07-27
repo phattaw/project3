@@ -189,7 +189,7 @@ ReactSignupLoginComponent.propTypes = {
 };
 
 ReactSignupLoginComponent.defaultProps = {
-  title: 'Company Name',
+  title: 'Roulette',
   isLogin: true,
   isRecoveringPassword: false,
   styles: {},
@@ -199,7 +199,7 @@ ReactSignupLoginComponent.defaultProps = {
   recoverPasswordCustomLabel: 'Recover Password',
   goToSignupCustomLabel: 'Signup',
   goToLoginCustomLabel: 'Login',
-  submitLoginCustomLabel: 'Signup',
+  submitLoginCustomLabel: 'Login',
   submitSignupCustomLabel: 'Signup',
   submitRecoverPasswordCustomLabel: 'Recover',
 };
