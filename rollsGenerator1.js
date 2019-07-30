@@ -46,15 +46,16 @@ function createSpins() {
         hits[rnd]++;
         j++
     }
-    console.log(hits);
-    //console.log(rolls);
+    //console.log(hits);
+    console.log(rolls);
+    console.log("rolls lenght is "+rolls.length);
 }
 //function Jerry creates an unsorted array of 38 objects consisting of a key representing a wheel number and a value representing the number of hits
 function Jerry() {
     for (var [key, value] of Object.entries(hits)) {
         winsArrayH.push(new Henry(key, value));
     }
-    //console.log("The winnersArrayH, Jerry, of roulette numbers and hits is ",winsArrayH);
+    console.log("The winnersArrayH, Jerry, of roulette numbers and hits is ",winsArrayH);
 }
 
 //Renders array sorted by fewest wins to most
@@ -117,7 +118,7 @@ function rollUntilHit() {
     }
 
     while (lastHitsArray[i].hitNumber < 36);
-    //console.log("\n If you had bet these numbers 35 times consecutively, you would have walked away a winner- ");
+    //console.log("\n If you had bet any of these numbers 35 times consecutively, you would have walked away a winner- ");
     var winCount = 0;
     for (var j = 0; j < letItRideArray.length; j++) {
         //console.log("winCount is " + winCount);
@@ -322,7 +323,6 @@ function splitWinObjects(splitWinsArray) {
     splitWinsArray.push(split3536);
 }
 
-
 function street(name, num1, num2, num3) {
     this.name=name;
     this.nums = [num1, num2, num3];
@@ -332,6 +332,7 @@ function street(name, num1, num2, num3) {
 function streetWins() {
     var streetWinsArray = [];
     streetWinObjects(streetWinsArray);
+    //console.log("rolls streetWins is "+ rolls.length)
     for (var i = 0; i < rolls.length; i++) {
         //console.log(rolls[i]);
         for (var j = 0; j < streetWinsArray.length; j++) {
@@ -344,7 +345,7 @@ function streetWins() {
     for (var k = 0; k < streetWinsArray.length; k++) {
         //console.log(streetWinsArray[k].name + " " + " " + streetWinsArray[k].hits);
         streetWinsTotal+=streetWinsArray[k].hits;
-        //The console.log below veries that it works. streetWinsTotal will equal 100 minus the hits for 0 and 37
+        //The console.log below verifies that it works. streetWinsTotal will equal 100 minus the hits for 0 and 37
         //console.log("StreetWinsTotal equal " +streetWinsTotal);
     }
 }
@@ -481,27 +482,62 @@ function cornerWinObjects(cornerWinsArray) {
     cornerWinsArray.push(corner32333536); 
 }
 
-function basket(name) {
-    this.name=name;
-    this.nums = [0, 1, 2, 3, 37];
-    this.hits = 0;
-}//the five numbers at the top
-
 function basketWins() {
+    var basket = {
+    name:"basket",
+    nums : [0, 1, 2, 3, 37],
+    hits : 0
+}//the five numbers at the top
     //var cornerWinsArray = [];
     //cornerWinObjects(cornerWinsArray);
-    var Jolie = new basket(Jolie);
+    //var Jolie = new basket(Jolie);
     for (var i = 0; i < rolls.length; i++) {
         //console.log(rolls[i]);
         //for (var j = 0; j < cornerWinsArray.length; j++) {
-            if (Jolie.nums.includes(rolls[i])) {
-                Jolie.hits++;
+            if (basket.nums.includes(rolls[i])) {
+                basket.hits++;
             }
         //}
     }
     
-        console.log("The basket of 0,00,1,2,3 had " + Jolie.hits);
+        //console.log("The basket of 0,00,1,2,3 had " + basket.hits);
    
+}function dozens(name, num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12) {
+    this.name=name;
+    this.nums = [num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12];
+    this.hits = 0;
+};//groups of twelve consecutive numbers
+
+//three contiguous numbers of 0, 00, 1,2, or 3
+function trio(name, num1, num2, num3) {
+    this.name=name;
+    this.nums = [num1, num2, num3];
+    this.hits = 0;
+}; //any two adjoining streets or rows
+
+function trioWins() {
+    var trioWinsArray = [];
+    trioWinObjects(trioWinsArray);
+    for (var i = 0; i < rolls.length; i++) {
+        //console.log(rolls[i]);
+        for (var j = 0; j < trioWinsArray.length; j++) {
+            if (trioWinsArray[j].nums.includes(rolls[i])) {
+                trioWinsArray[j].hits++;
+            }
+        }
+    }
+    
+    for (var k = 0; k < trioWinsArray.length; k++) {
+        //console.log(trioWinsArray[k].name + " " + " " + trioWinsArray[k].hits);
+    }
+}
+
+function trioWinObjects(trioWinsArray) {
+    var trio012 = new trio("trio012", 0,1,2);
+    trioWinsArray.push(trio012);
+
+    var trio0023 = new trio("trio0023", 37,1,2);
+    trioWinsArray.push(trio0023);
 }
 
 function sixLine(name, num1, num2, num3, num4, num5, num6) {
@@ -510,29 +546,211 @@ function sixLine(name, num1, num2, num3, num4, num5, num6) {
     this.hits = 0;
 }; //any two adjoining streets or rows
 
-function vertCols(name, num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12) {
+function sixLineWins() {
+    var sixLineWinsArray = [];
+    sixLineWinObjects(sixLineWinsArray);
+    for (var i = 0; i < rolls.length; i++) {
+        //console.log(rolls[i]);
+        for (var j = 0; j < sixLineWinsArray.length; j++) {
+            if (sixLineWinsArray[j].nums.includes(rolls[i])) {
+                sixLineWinsArray[j].hits++;
+            }
+        }
+    }
+    for (var k = 0; k < sixLineWinsArray.length; k++) {
+        //console.log(sixLineWinsArray[k].name + " " + " " + sixLineWinsArray[k].hits);
+    }
+}
+
+function sixLineWinObjects(sixLineWinsArray) {
+    var sixLine1_6 = new sixLine("sixLine1_6", 1, 2, 3, 4, 5, 6);
+    sixLineWinsArray.push(sixLine1_6);
+
+    var sixLine4_9= new sixLine("sixLine4_9", 4,5,6,7,8,9);
+    sixLineWinsArray.push(sixLine4_9); 
+
+    var sixLine7_12= new sixLine("sixLine7_12", 7,8,9,10,11,12);
+    sixLineWinsArray.push(sixLine7_12); 
+
+    var sixLine10_15= new sixLine("sixLine10_15", 10,11,12,13,14,15);
+    sixLineWinsArray.push(sixLine10_15);  
+
+    var sixLine13_18= new sixLine("sixLine13_18", 13,14,15,16,17,18);
+    sixLineWinsArray.push(sixLine13_18); 
+
+    var sixLine16_21= new sixLine("sixLine16_21", 16,17,18,19,20,21);
+    sixLineWinsArray.push(sixLine16_21); 
+
+    var sixLine19_24= new sixLine("sixLine19_24", 19,20,21,22,23,24);
+    sixLineWinsArray.push(sixLine19_24); 
+
+    var sixLine22_27= new sixLine("sixLine22_27", 22,23,24,25,26,27);
+    sixLineWinsArray.push(sixLine22_27);  
+
+    var sixLine25_30= new sixLine("sixLine25_30", 25,26,27,28,29,30);
+    sixLineWinsArray.push(sixLine25_30); 
+
+    var sixLine28_33= new sixLine("sixLine28_33", 28,29,30,31,32,33);
+    sixLineWinsArray.push(sixLine28_33); 
+
+    var sixLine31_36= new sixLine("sixLine31_36", 31,32,33,34,35,36);
+    sixLineWinsArray.push(sixLine31_36);
+    //console.log("sixLineWinsArray is " + sixLineWinsArray);
+}
+
+function columns(name, num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12) {
     this.name=name;
     this.nums = [num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12];
     this.hits = 0;
-}//columns of twelve numbers, each three greater than the last 
+};//groups of twelve consecutive numbers
+function columnsWins() {
+    var columnsWinsArray = [];
+    columnsWinObjects(columnsWinsArray);
+    for (var i = 0; i < rolls.length; i++) {
+        for (var j = 0; j < columnsWinsArray.length; j++) {
+            if (columnsWinsArray[j].nums.includes(rolls[i])) {
+                columnsWinsArray[j].hits++;
+            }
+        }
+    }
+    for (var k = 0; k < columnsWinsArray.length; k++) {
+        console.log(columnsWinsArray[k].name + " " + " " + columnsWinsArray[k].hits);
+    }
+}
+
+function columnsWinObjects(columnsWinsArray) {
+    var columnsLeft = new columns("columnsLeft", 1,4,7,10,13,16,19,22,25,28,31,34);
+    columnsWinsArray.push(columnsLeft)
+    
+    var columnsMiddle = new columns("columnsMiddle", 2,5,8,11,14,17,20,23,26,29,32,35);
+    columnsWinsArray.push(columnsMiddle);
+    
+    var columnsRight = new columns("columnsRight", 3,6,9,12,15,18,21,24,27,30,33,36);
+    columnsWinsArray.push(columnsRight);
+}
+
 
 function dozens(name, num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12) {
     this.name=name;
     this.nums = [num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12];
     this.hits = 0;
 };//groups of twelve consecutive numbers
+function dozensWins() {
+    var dozensWinsArray = [];
+    dozensWinObjects(dozensWinsArray);
+    for (var i = 0; i < rolls.length; i++) {
+        for (var j = 0; j < dozensWinsArray.length; j++) {
+            if (dozensWinsArray[j].nums.includes(rolls[i])) {
+                dozensWinsArray[j].hits++;
+            }
+        }
+    }
+    for (var k = 0; k < dozensWinsArray.length; k++) {
+        //console.log(dozensWinsArray[k].name + " " + " " + dozensWinsArray[k].hits);
+    }
+}
+
+function dozensWinObjects(dozensWinsArray) {
+    var dozens1_12 = new dozens("dozens1_12", 1, 2, 3, 4, 5, 6,7,8,9,10,11,12);
+    dozensWinsArray.push(dozens1_12);
+    
+    var dozens13_24 = new dozens("dozens13_24", 13,14,15,16,17,18,19,20,21,22,23,24);
+    dozensWinsArray.push(dozens13_24);
+    
+    var dozens25_36 = new dozens("dozens25_36", 25,26,27,28,29,30,31,32,33,34,35,36);
+    dozensWinsArray.push(dozens25_36);
+}
+
+//the eighteen lowest and eighteen highest numbers 
+function highLow(name, num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12, num13, num14, num15, num16, num17, num18) {
+    this.name=name;
+    this.nums = [num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12, num13, num14, num15, num16, num17, num18];
+    this.hits = 0;
+}
+function highLowWins() {
+    var highLowWinsArray = [];
+    highLowWinObjects(highLowWinsArray);
+    var rollsJim=0;
+    for (var i = 0; i < rolls.length; i++) {
+        for (var j = 0; j < highLowWinsArray.length; j++) {
+            if (highLowWinsArray[j].nums.includes(rolls[i])) {
+                highLowWinsArray[j].hits++;
+            }
+        }
+    }
+    for (var k = 0; k < highLowWinsArray.length; k++) {
+        console.log(highLowWinsArray[k].name + " " + " " + highLowWinsArray[k].hits);
+    }
+}
+
+function highLowWinObjects(highLowWinsArray) {
+    var highLow1_18 = new highLow("highLow1_18", 1, 2, 3, 4, 5, 6,7,8,9,10,11,12,13,14,15,16,17,18);
+    highLowWinsArray.push(highLow1_18);
+
+    var highLow19_36 = new highLow("highLow19_36", 19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36);
+    highLowWinsArray.push(highLow19_36);
+}
 
 function oddEven(name, num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12, num13, num14, num15, num16, num17, num18) {
     this.name=name;
     this.nums = [num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12, num13, num14, num15, num16, num17, num18];
     this.hits = 0;
-}//columns of twelve numbers, each three greater than the last;//easy enough
+}
+function oddEvenWins() {
+    var oddEvenWinsArray = [];
+    oddEvenWinObjects(oddEvenWinsArray);
+    var rollsJim=0;
+    for (var i = 0; i < rolls.length; i++) {
+        rollsJim++
+        //console.log(rolls[i]);
+        for (var j = 0; j < oddEvenWinsArray.length; j++) {
+            if (oddEvenWinsArray[j].nums.includes(rolls[i])) {
+                oddEvenWinsArray[j].hits++;
+            }
+        }
+    }
+    for (var k = 0; k < oddEvenWinsArray.length; k++) {
+        console.log(oddEvenWinsArray[k].name + " " + " " + oddEvenWinsArray[k].hits);
+    }
+}
+
+function oddEvenWinObjects(oddEvenWinsArray) {
+    var odd = new oddEven("odd", 1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35);
+    oddEvenWinsArray.push(odd);
+
+    var even = new highLow("even",2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36);
+    oddEvenWinsArray.push(even);
+}
 
 function redBlack(name, num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12, num13, num14, num15, num16, num17, num18) {
     this.name=name;
     this.nums = [num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12, num13, num14, num15, num16, num17, num18];
     this.hits = 0;
 };//self-explanatory 
+
+function redBlackWins() {
+    var redBlackWinsArray = [];
+    redBlackWinObjects(redBlackWinsArray);
+    for (var i = 0; i < rolls.length; i++) {
+        for (var j = 0; j < redBlackWinsArray.length; j++) {
+            if (redBlackWinsArray[j].nums.includes(rolls[i])) {
+                redBlackWinsArray[j].hits++;
+            }
+        }
+    }
+    for (var k = 0; k < redBlackWinsArray.length; k++) {
+        console.log(redBlackWinsArray[k].name + " " + " " + redBlackWinsArray[k].hits);
+    }
+}
+
+function redBlackWinObjects(redBlackWinsArray) {
+    var red = new redBlack("red", 1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36);
+    redBlackWinsArray.push(red);
+
+    var black = new redBlack("black",2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,35);
+    redBlackWinsArray.push(black);
+}
+
 
 //This conglomerate() function makes it possible to call all the functions when the window loads
 function conglomerate() {
@@ -549,7 +767,13 @@ function conglomerate() {
     streetWins();
     cornerWins();
     basketWins();
+    sixLineWins();
+    highLowWins();
+    dozensWins();
+    trioWins();
+    columnsWins();
+    oddEvenWins();
+    redBlackWins();
 }
-
 //Calls all the functions when page loads
 conglomerate();
