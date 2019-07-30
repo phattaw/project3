@@ -1,3 +1,4 @@
+const API = require( "./client/src/utils/API.js");
 
 //with every spin, the result is unshift into the rolls array
 var rolls = [];
@@ -47,8 +48,10 @@ function createSpins() {
         j++
     }
     //console.log(hits);
+    
     console.log(rolls);
     console.log("rolls lenght is "+rolls.length);
+    API.saveRolls(rolls.map(r=>{ return {roll:r}; })).then(res=>{console.log(res)});
 }
 //function Jerry creates an unsorted array of 38 objects consisting of a key representing a wheel number and a value representing the number of hits
 function Jerry() {
@@ -755,25 +758,25 @@ function redBlackWinObjects(redBlackWinsArray) {
 //This conglomerate() function makes it possible to call all the functions when the window loads
 function conglomerate() {
     createSpins();
-    Jerry();
-    Josh();
-    Jim();
-    Lucy();
-    Nate();
-    moneyWinners();
-    Jackie();
-    rollUntilHit();
-    splitWins();
-    streetWins();
-    cornerWins();
-    basketWins();
-    sixLineWins();
-    highLowWins();
-    dozensWins();
-    trioWins();
-    columnsWins();
-    oddEvenWins();
-    redBlackWins();
+    // Jerry();
+    // Josh();
+    // Jim();
+    // Lucy();
+    // Nate();
+    // moneyWinners();
+    // Jackie();
+    // rollUntilHit();
+    // splitWins();
+    // streetWins();
+    // cornerWins();
+    // basketWins();
+    // sixLineWins();
+    // highLowWins();
+    // dozensWins();
+    // trioWins();
+    // columnsWins();
+    // oddEvenWins();
+    // redBlackWins();
 }
 //Calls all the functions when page loads
 conglomerate();
