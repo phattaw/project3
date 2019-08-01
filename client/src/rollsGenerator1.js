@@ -36,6 +36,8 @@ function numberSort2(x, y) {
 //fuction populates the rolls array with each wheel spin and tracks the number of hits for each number in hits object
 function createSpins() {
     var j = 0;
+    rolls = []
+    winsArrayH = [];
     //create an object of 38 key/value pairs with the initial value of wins set to 0. 
     for (var i = 0; i < 38; i++) {
         hits[i] = 0;
@@ -58,32 +60,33 @@ function Jerry() {
     for (var [key, value] of Object.entries(hits)) {
         winsArrayH.push(new Henry(key, value));
     }
-    console.log("The winnersArrayH, Jerry, of roulette numbers and hits is ",winsArrayH);
+    //// console.log("The winnersArrayH, Jerry, of roulette numbers and hits is ",winsArrayH);
 }
 
 //Renders array sorted by fewest wins to most
 function Josh() {
     winsArrayHSorted = [...winsArrayH].sort((x, y) => numberSort(x.totalWinsH, y.totalWinsH));
-    //console.log("winsArrayHSorted, least to most wins, is ", winsArrayHSorted);
+    //// console.log("winsArrayHSorted, least to most wins, is ", winsArrayHSorted);
 }
 //Renders array sorted by most wins to fewest
 function Jim() {
     winsArrayHRevSorted = [...winsArrayH].sort((x, y) => numberSort2(x.totalWinsH, y.totalWinsH));
-    //console.log("winsArrayHRevSorted, most to least wins,  is ", winsArrayHRevSorted);
+    //// console.log("winsArrayHRevSorted, most to least wins,  is ", winsArrayHRevSorted);
 }
 
 //Renders array of five worst numbers over last 100
 function Lucy() {
     lucyLosers = winsArrayHSorted.slice(0, 5);
     for (var i = 0; i < lucyLosers.length; i++) {
-        //console.log("Lucy, The worst five numbers- " + lucyLosers[i].numberH + " won " + lucyLosers[i].totalWinsH )
+        //// console.log("Lucy, The worst five numbers- " + lucyLosers[i].numberH + " won " + lucyLosers[i].totalWinsH )
     }
 }
 //Renders array of five best numbers over last wheelSpins number
 function Nate() {
     nateNumbers = winsArrayHRevSorted.slice(0, 5);
+    // console.log(`top 5: ${JSON.stringify(nateNumbers, null, 2)}`);
     for (var i = 0; i < lucyLosers.length; i++) {
-        //console.log("Nate, The best five numbers- " + nateNumbers[i].numberH + " won " + nateNumbers[i].totalWinsH )
+        //// console.log("Nate, The best five numbers- " + nateNumbers[i].numberH + " won " + nateNumbers[i].totalWinsH )
     }
 }
 
@@ -94,26 +97,26 @@ function moneyWinners() {
         moneyWinnersSorted.push(winsArrayHRevSorted[i]);
         i++;
     }
-    //console.log("moneyWinners, The number of winners if bet wheelSpins times is ",moneyWinnersSorted);
+    //// console.log("moneyWinners, The number of winners if bet wheelSpins times is ",moneyWinnersSorted);
 }
 
 //renders an array of all numbers  by their first hit in the wheelSpins sample
 function Jackie() {
     for (var i = 0; i < 38; i++) {
-        //console.log("index of i is " + rolls.indexOf(i));
+        //// console.log("index of i is " + rolls.indexOf(i));
         var lastHit = new Christian(i, rolls.indexOf(i));
         if (lastHit.hitNumber !== -1) {
             lastHitsArray.push(lastHit);
         }
     }
     lastHitsArray.sort((x, y) => numberSort(x.hitNumber, y.hitNumber));
-    //console.log("Jackie, The lastHitsArray/index of last hit is ", lastHitsArray);
+    //// console.log("Jackie, The lastHitsArray/index of last hit is ", lastHitsArray);
 }
 
 //This array renders the numbers that hit in the first 35 spins, which means they would be net winners if bet consecutively
 function rollUntilHit() {
     var i = 0;
-    //console.log("rollUntilHit", lastHitsArray[i]);
+    //// console.log("rollUntilHit", lastHitsArray[i]);
 
     do {
         letItRideArray.push(lastHitsArray[i]);
@@ -124,14 +127,14 @@ function rollUntilHit() {
     //console.log("\n If you had bet any of these numbers 35 times consecutively, you would have walked away a winner- ");
     var winCount = 0;
     for (var j = 0; j < letItRideArray.length; j++) {
-        //console.log("winCount is " + winCount);
+        //// console.log("winCount is " + winCount);
         if (letItRideArray[j].hitNumber !== -1) {
-            //console.log("Number: " + letItRideArray[j].roulNumber + " hit on spin "+letItRideArray[j].hitNumber);
+            //// console.log("Number: " + letItRideArray[j].roulNumber + " hit on spin "+letItRideArray[j].hitNumber);
             winCount++
         }
     }
-    //console.log("\n Out of 38 possible numbers, " + winCount + " of them would have been net winners in the last 35 spins")
-    //console.log("letItRide array is ", letItRideArray);
+    //// console.log("\n Out of 38 possible numbers, " + winCount + " of them would have been net winners in the last 35 spins")
+    //// console.log("letItRide array is ", letItRideArray);
 }
 
 function split(name, num1, num2) {
@@ -139,11 +142,12 @@ function split(name, num1, num2) {
     this.nums = [num1, num2];
     this.hits = 0;
 }; //two adjoining
+
 function splitWins() {
     var splitWinsArray = [];
     splitWinObjects(splitWinsArray);
     for (var i = 0; i < rolls.length; i++) {
-        //console.log(rolls[i]);
+        //// console.log(rolls[i]);
         for (var j = 0; j < splitWinsArray.length; j++) {
             if (splitWinsArray[j].nums.includes(rolls[i])) {
                 splitWinsArray[j].hits++;
@@ -754,29 +758,35 @@ function redBlackWinObjects(redBlackWinsArray) {
     redBlackWinsArray.push(black);
 }
 
-
 //This conglomerate() function makes it possible to call all the functions when the window loads
-function conglomerate() {
+export function conglomerate() {
     createSpins();
-    // Jerry();
-    // Josh();
-    // Jim();
-    // Lucy();
-    // Nate();
-    // moneyWinners();
-    // Jackie();
-    // rollUntilHit();
-    // splitWins();
-    // streetWins();
-    // cornerWins();
-    // basketWins();
-    // sixLineWins();
-    // highLowWins();
-    // dozensWins();
-    // trioWins();
-    // columnsWins();
-    // oddEvenWins();
-    // redBlackWins();
+    Jerry();
+    Josh();
+    Jim();
+    Lucy();
+    Nate();
+    moneyWinners();
+    Jackie();
+    rollUntilHit();
+    splitWins();
+
+    let results = {
+        rolls: rolls,
+        hits:  hits,
+        winsArrayH: winsArrayH,
+        winsArrayHSorted: winsArrayHSorted,
+        winsArrayHRevSorted: winsArrayHRevSorted,
+        lucyLosers: lucyLosers,
+        nateNumbers: nateNumbers,
+        moneyWinnersSorted: moneyWinnersSorted,
+        lastHitsArray: lastHitsArray,
+        letItRideArray: letItRideArray
+    }
+
+    return results;
 }
+
+
 //Calls all the functions when page loads
-conglomerate();
+// conglomerate(); 
