@@ -1,4 +1,4 @@
-const API = require( "./client/src/utils/API.js");
+const API = require( "./utils/API.js");
 
 //with every spin, the result is unshift into the rolls array
 var rolls = [];
@@ -348,7 +348,7 @@ function streetWins() {
             }
         }
     }
-    streetWinsTotal = 0;
+    let streetWinsTotal = 0;
     for (var k = 0; k < streetWinsArray.length; k++) {
         //console.log(streetWinsArray[k].name + " " + " " + streetWinsArray[k].hits);
         streetWinsTotal+=streetWinsArray[k].hits;
@@ -509,11 +509,8 @@ function basketWins() {
     
         //console.log("The basket of 0,00,1,2,3 had " + basket.hits);
    
-}function dozens(name, num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12) {
-    this.name=name;
-    this.nums = [num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12];
-    this.hits = 0;
-};//groups of twelve consecutive numbers
+}
+
 
 //three contiguous numbers of 0, 00, 1,2, or 3
 function trio(name, num1, num2, num3) {
