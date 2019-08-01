@@ -32,23 +32,34 @@ function Area(props) {
         position: "absolute"
     }
 
+    if(props.visible) {
+        console.log(`props.id: ${props.id}`);
+        defaultZ.zIndex = 2;
+    }
+
     let touchableStyle = {
         zIndex: 3,
         position: "absolute"
     }
 
     // console.log(`imgStyle: ${JSON.stringify(imgStyle, null, 2)}`);
-    
-    return (
-        <div style={touchableStyle}>
-            <div style={touchableStyle}>
-                <area style={touchableStyle} key={props.id} shape="rect" coords={props.coords} ></area>
-            </div>
+    // let id = props.id;
+    // console.log(`props.id: ${id}`);
+    // if(props.visible) {
+        return (
             <div className="overlay" style={imgStyle}>
-                <img className="icon" style={defaultZ} src="../../../images/pokerChip.png" width="50px"></img>
+                <img className="icon" style={defaultZ} src="../../../images/pokerChip.png" width="50px" onClick={() => props.passedOnClick(props.id)}></img>
             </div>
-        </div>
-    );
+        )
+    // } else {
+    //     return (
+    //         <div style={touchableStyle}>
+    //             <area style={touchableStyle} key={props.id} shape="rect" coords={props.coords} onClick={() => props.passedOnClick(props.id)}></area>
+    //         </div>
+    //     );    
+    // }
+
+
 }
 
 export default Area;

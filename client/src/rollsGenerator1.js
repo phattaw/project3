@@ -51,9 +51,9 @@ function createSpins() {
     }
     //console.log(hits);
     
-    console.log(rolls);
-    console.log("rolls lenght is "+rolls.length);
-    API.saveRolls(rolls.map(r=>{ return {roll:r}; })).then(res=>{console.log(res)});
+    // console.log(rolls);
+    // console.log("rolls lenght is "+rolls.length);
+    // API.saveRolls(rolls.map(r=>{ return {roll:r}; })).then(res=>{console.log(res)});
 }
 //function Jerry creates an unsorted array of 38 objects consisting of a key representing a wheel number and a value representing the number of hits
 function Jerry() {
