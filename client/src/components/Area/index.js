@@ -25,11 +25,12 @@ function Area(props) {
         right: props.numCoords.right,
         zIndex: 2,
         position: "absolute"
-    };
+    };  
 
     let defaultZ = {
         zIndex: 2,
         position: "absolute"
+        
     }
 
     let touchableStyle = {
@@ -40,14 +41,14 @@ function Area(props) {
     // console.log(`imgStyle: ${JSON.stringify(imgStyle, null, 2)}`);
     
     return (
-        <div style={touchableStyle}>
+            <div className="overlay" style={imgStyle}>
             <div style={touchableStyle}>
+                
                 <area style={touchableStyle} key={props.id} shape="rect" coords={props.coords} ></area>
             </div>
-            <div className="overlay" style={imgStyle}>
                 <img className="icon" style={defaultZ} src="../../../images/pokerChip.png" width="50px"></img>
             </div>
-        </div>
+        
     );
 }
 
