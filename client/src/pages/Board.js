@@ -45,6 +45,7 @@ class Board extends Component {
           type: "numbers"
         }
         touchableRects.push(coordinate);
+        status.push({ clicked: false });
       }
     }
 
@@ -59,6 +60,8 @@ class Board extends Component {
         id: id,
         type: "columnBet"
       }
+      touchableRects.push(coordinate);
+      status.push({ clicked: false });
     }
 
     // // 1/3rd bets
@@ -74,6 +77,7 @@ class Board extends Component {
       }
 
       touchableRects.push(coordinate);
+      status.push({ clicked: false });
     }
 
     // // 50/50 bets
@@ -89,6 +93,7 @@ class Board extends Component {
       }
 
       touchableRects.push(coordinate);
+      status.push({ clicked: false });
     }
 
     // // Zero
@@ -103,6 +108,7 @@ class Board extends Component {
     }
 
     touchableRects.push(zeroCoordinate);
+    status.push({ clicked: false });
 
     // // Left/Right Split locations
     for(let j = 0; j < 3; j++) {
@@ -115,6 +121,10 @@ class Board extends Component {
           id: id,
           type: "split"
         }
+        touchableRects.push(splitCoordinate);
+        status.push({ clicked: false });
+      }
+    }
 
     // // Zero
     // let zeroCoordinates = ""
@@ -138,6 +148,10 @@ class Board extends Component {
           id: id,
           type: "split"
         }
+        touchableRects.push(splitCoordinate);
+        status.push({ clicked: false });
+      }
+    }
 
     // // Top/Bottom Split locations 125 to 210
     // for(let j = 0; j < 2; j++) {
@@ -167,6 +181,11 @@ class Board extends Component {
           id: id,
           type: "square"
         }
+
+        touchableRects.push(squareCoordinate);
+        status.push({ clicked: false });
+      }
+    }
     this.setState({ status: status, touchableRects: touchableRects });
 
     return(touchableRects);
@@ -281,7 +300,7 @@ class Board extends Component {
     if(this.state.status.length > 0) {
       return (
         <Container fluid>
-          <img src="../../../images/rouletteLayout.png" width="1200" height="576" alt="Planets" useMap="#rouletteMap"></img>
+          <img src="../../../images/rouletteLayout.png" width="1200px" height="576px" alt="Planets" useMap="#rouletteMap"></img>
           <map name="rouletteMap">
             {
               this.state.touchableRects.map(touchable =>
