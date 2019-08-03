@@ -7,8 +7,8 @@ var hits = {};
 var winsArrayH = [];
 var winsArrayHSorted = [];
 var winsArrayHRevSorted = [];
-var lucyLosers = [];
-var nateNumbers = [];
+var fiveWorstNumbers = [];
+var fiveBestNumbers = [];
 var moneyWinnersSorted = [];
 var lastHitsArray = [];
 var letItRideArray = [];
@@ -76,17 +76,17 @@ function Jim() {
 
 //Renders array of five worst numbers over last 100
 function Lucy() {
-    lucyLosers = winsArrayHSorted.slice(0, 5);
-    for (var i = 0; i < lucyLosers.length; i++) {
-        //// console.log("Lucy, The worst five numbers- " + lucyLosers[i].numberH + " won " + lucyLosers[i].totalWinsH )
+    fiveWorstNumbers = winsArrayHSorted.slice(0, 5);
+    for (var i = 0; i < fiveWorstNumbers.length; i++) {
+        //// console.log("Lucy, The worst five numbers- " + fiveWorstNumbers[i].numberH + " won " + fiveWorstNumbers[i].totalWinsH )
     }
 }
 //Renders array of five best numbers over last wheelSpins number
 function Nate() {
-    nateNumbers = winsArrayHRevSorted.slice(0, 5);
-    // console.log(`top 5: ${JSON.stringify(nateNumbers, null, 2)}`);
-    for (var i = 0; i < lucyLosers.length; i++) {
-        //// console.log("Nate, The best five numbers- " + nateNumbers[i].numberH + " won " + nateNumbers[i].totalWinsH )
+    fiveBestNumbers = winsArrayHRevSorted.slice(0, 5);
+    // console.log(`top 5: ${JSON.stringify(fiveBestNumbers, null, 2)}`);
+    for (var i = 0; i < fiveWorstNumbers.length; i++) {
+        //// console.log("Nate, The best five numbers- " + fiveBestNumbers[i].numberH + " won " + fiveBestNumbers[i].totalWinsH )
     }
 }
 
@@ -774,8 +774,8 @@ export function conglomerate() {
         winsArrayH: winsArrayH,
         winsArrayHSorted: winsArrayHSorted,
         winsArrayHRevSorted: winsArrayHRevSorted,
-        lucyLosers: lucyLosers,
-        nateNumbers: nateNumbers,
+        fiveWorstNumbers: fiveWorstNumbers,
+        fiveBestNumbers: fiveBestNumbers,
         moneyWinnersSorted: moneyWinnersSorted,
         lastHitsArray: lastHitsArray,
         letItRideArray: letItRideArray

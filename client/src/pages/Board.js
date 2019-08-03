@@ -32,7 +32,7 @@ class Board extends Component {
     let id = 0;
     let status = [];
 
-    // All numbers and row 1/3rd bets
+    // All numbers
     for (let j = 0; j < 3; j++) {
       for (let i = 0; i < 12; i++) {
         let coordinates = ""
@@ -49,10 +49,39 @@ class Board extends Component {
       }
     }
 
-    // // Colum bets (end of number row)
+    // Zero
+    let zeroCoordinates = ""
+    zeroCoordinates = "75,180,100,320";;
+    id++;
+    let zeroCoordinate = {
+      coordinates: zeroCoordinates,
+      numCoordinates: { left: 75, top: 230, right: 100, bottom: 320 },
+      id: id,
+      type: "zero"
+    }
+
+    touchableRects.push(zeroCoordinate);
+    status.push({ clicked: false });
+
+    // Double Zero
+    let doubleZeroCoordinates = ""
+    // doubleZeroCoordinates = "75,180,100,320";
+    doubleZeroCoordinates = "50,50,100,160";
+    id++;
+    let doubleZeroCoordinate = {
+      coordinates: doubleZeroCoordinates,
+      numCoordinates: { left: 75, top: 180, right: 100, bottom: 320 },
+      id: id,
+      type: "double zero"
+    }
+
+    touchableRects.push(doubleZeroCoordinate);
+    status.push({ clicked: false });
+    
+    // Column bets (end of number row)
     for(let j = 0; j < 3; j++) {
       let coordinates = ""
-      coordinates = (left + 80 * 11) + "," + (top + j * 115) + "," + (right + 80 * 11) + "," + (bottom + j * 115);
+      coordinates = (left + 80 * 12) + "," + (top + j * 115) + "," + (right + 80 * 12) + "," + (bottom + j * 115);
       id++;
       let coordinate = {
         coordinates: coordinates,
@@ -64,7 +93,7 @@ class Board extends Component {
       status.push({ clicked: false });
     }
 
-    // // 1/3rd bets
+    // 1/3rd bets
     for(let i = 0; i < 3; i++) {
       let coordinates = ""
       coordinates = (150 + 325 * i) + "," + 370 + "," + (420 + 325 * i) + "," + 425;
@@ -80,7 +109,7 @@ class Board extends Component {
       status.push({ clicked: false });
     }
 
-    // // 50/50 bets
+    // 50/50 bets
     for(let i = 0; i < 6; i++) {
       let coordinates = ""
       coordinates = (150 + 160 * i) + "," + 475 + "," + (270 + 160 * i) + "," + 545;
@@ -96,21 +125,7 @@ class Board extends Component {
       status.push({ clicked: false });
     }
 
-    // // Zero
-    let zeroCoordinates = ""
-    zeroCoordinates = "50,50,100,320";
-    id++;
-    let zeroCoordinate = {
-      coordinates: zeroCoordinates,
-      numCoordinates: { left: 75, top: 180, right: 100, bottom: 320 },
-      id: id,
-      type: "zero"
-    }
-
-    touchableRects.push(zeroCoordinate);
-    status.push({ clicked: false });
-
-    // // Left/Right Split locations
+    // Left/Right Split locations
     for(let j = 0; j < 3; j++) {
       for(let i = 0; i < 11; i++) {
         let splitCoordinates = (200 + 80 * i) + "," + (50 + 100*j) + "," + (220 + 80 * i) + "," + (100 + 100*j);
@@ -137,7 +152,7 @@ class Board extends Component {
     //   type: "zero"
     // }
 
-    // // // Top/Bottom Split locations 125 to 210
+    // Top/Bottom Split locations 125 to 210
     for(let j = 0; j < 2; j++) {
       for(let i = 0; i < 12; i++) {
         let splitCoordinates = (150 + 85 * i) + "," + (110 + 105*j) + "," + (185 + 85 * i) + "," + (130 + 105*j);
@@ -170,7 +185,7 @@ class Board extends Component {
     //   }
     // }
     
-    // // Square bet locations
+    // Square bet locations
     for(let j = 0; j < 2; j++) {
       for(let i = 0; i < 11; i++) {
         let squareCoordinates = (200 + 81 * i) + "," + (115 + 110*j) + "," + (220 + 81 * i) + "," + (135 + 110*j);
@@ -214,82 +229,33 @@ class Board extends Component {
 
   generateButtonStyles = (results) => {
     let buttonStyle = {};
-    console.log(`results: ${JSON.stringify(results, null, 2)}`);
+    // console.log(`results: ${JSON.stringify(results, null, 2)}`);
 
     for (let i = 0; i < this.state.status.length; i++) {
       buttonStyle[i] = { chipColor: "../../../images/torquoisePokerChip.png", visible: false };
     }
 
-    // switch(props.buttonStyle) {
-    //     case "topLeft":
-    //         curStyle.borderRight = "none";
-    //         curStyle.borderBottom = "none";    
-    //         break;
-    //     case "topRight":
-    //         curStyle.borderLeft = "none";
-    //         curStyle.borderBottom = "none";
-    //         break;
-    //     case "bottomLeft":
-    //         curStyle.borderTop = "none";
-    //         curStyle.borderRight = "none";
-    //         break;
-    //     case "bottomRight":
-    //         curStyle.borderLeft = "none";
-    //         curStyle.borderTop = "none";
-    //         break;
-    //     case "single":
-    //         break;
-    //     case "topDouble":
-    //         curStyle.borderBottom = "none";
-    //         break;
-    //     case "bottomDouble":
-    //         curStyle.borderTop = "none";
-    //         break;
-    //     default:
-    //         break;
-    // }
-
     for (let i = 0; i < this.state.status.length; i++) {
-      for (let j = 0; j < results.nateNumbers.length; j++) {
-        if (parseInt(results.nateNumbers[j].numberH) === i) {
-          // console.log(`results.nateNumbers: ${JSON.stringify(results.nateNumbers[j].numberH, null, 2)}`);
-          // buttonStyle[i].borderColor = "orange";
-          // buttonStyle[i].boxShadow = "0 6px 6px -2px purple, 0 8px 8px -4px yellow";
-          // Bottom right
-          // buttonStyle[i].boxShadow = "2px 2px 2px blue, 5px 5px 5px orange";
-          // top right
-          // buttonStyle[i].boxShadow = "2px -2px 2px blue, 5px -5px 5px orange";
+      for (let j = 0; j < results.fiveBestNumbers.length; j++) {
+        if (parseInt(results.fiveBestNumbers[j].numberH) === i) {
           buttonStyle[i].chipColor = "../../../images/orangePokerChip.png";
           buttonStyle[i].visible = true;
-
-          // Left top right
-          // buttonStyle[i].boxShadow = "0px -2px 0px 2px blue, 0px -5px 0px 4px orange";
-          // left right bottom
-          // buttonStyle[i].boxShadow = "0px 2px 0px 2px blue, 0px 5px 0px 4px orange";
         }
       }
     }
 
     for (let i = 0; i < this.state.status.length; i++) {
-      for (let j = 0; j < results.lucyLosers.length; j++) {
+      for (let j = 0; j < results.fiveWorstNumbers.length; j++) {
 
-        if (parseInt(results.lucyLosers[j].numberH) === i) {
-          // console.log(`results.lucyLosers: ${JSON.stringify(results.lucyLosers[j].numberH, null, 2)}`);
-
-          // buttonStyle[i].borderColor = "blue";
+        if (parseInt(results.fiveWorstNumbers[j].numberH) === i) {
           buttonStyle[i].chipColor = "../../../images/pokerChip.png";
           buttonStyle[i].visible = true;
-          // top left
-          // buttonStyle[i].boxShadow = "-2px -2px 2px pink, -5px -5px 5px blue";
-          // bottom left
-          // buttonStyle[i].boxShadow = "-2px 2px 2px pink, -5px 5px 5px blue";
-          // left top bottom
-          // buttonStyle[i].boxShadow = "-2px 0px 0px 2px pink, -5px 0px 0px 4px blue";
-          // top right bottom
-          // buttonStyle[i].boxShadow = "2px 0px 0px 2px pink, 5px 0px 0px 4px blue";
         }
       }
     }
+
+    console.log(`results.fiveBestNumbers[j]: ${JSON.stringify(results.fiveBestNumbers, null, 2)}`);
+    console.log(`results.fiveWorstNumbers[j]: ${JSON.stringify(results.fiveWorstNumbers, null, 2)}`);
 
     return (buttonStyle);
   }
@@ -300,7 +266,7 @@ class Board extends Component {
     if(this.state.status.length > 0) {
       return (
         <Container fluid>
-          <img src="../../../images/rouletteLayout.png" width="1200px" height="576px" alt="Planets" useMap="#rouletteMap"></img>
+          <img src="../../../images/rouletteLayout2.png" width="1200px" height="576px" alt="Planets" useMap="#rouletteMap"></img>
           <map name="rouletteMap">
             {
               this.state.touchableRects.map(touchable =>

@@ -36,7 +36,6 @@ function Area(props) {
     // console.log(`imgStyle: ${JSON.stringify(imgStyle, null, 2)}`);
     let id = props.id;
     if(props.visible || (props.buttonStyle[props.id - 1] && props.buttonStyle[props.id - 1].visible)) {
-        console.log(`props.visible: ${id}`);
         // if(props.buttonStyle[props.tileId]) {
         //     defaultZ.borderColor = props.buttonStyle[props.tileId].borderColor;
         // }
