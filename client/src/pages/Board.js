@@ -7,8 +7,49 @@ import { Container } from "../components/Grid";
 import { TableRow, FinalTableRow } from "../components/TableRow";
 import { ZerosRow } from "../components/ZerosRow";
 import { conglomerate } from "../rollsGenerator1";
-// import RouletteBoard from "../components/RouletteBoard";
 import Area from "../components/Area";
+
+let splitIndexes = {};
+let cornerIndexes = {};
+
+function generateCornerIndexes() {
+  let startIndex = 107;
+  for(let j = 3; j > 1; j--) {
+    for(let i = 1; i < 12; i++) {
+      let firstNum = (j + (3 * (i - 1)));
+      let secondNum = firstNum + 3;
+      let thirdNum = firstNum - 1;
+      let fourthNum = secondNum - 1;
+  
+      cornerIndexes["corner" + thirdNum + firstNum + fourthNum + secondNum] = startIndex++;
+    }
+  }
+}
+
+generateCornerIndexes();
+
+function generateSplitIndexes() {
+  let startIndex = 50;
+  for(let j = 3; j > 0; j--) {
+    for(let i = 1; i < 12; i++) {
+      let firstNum = (j + (3 * (i-1)));
+      let secondNum = firstNum + 3;
+  
+      splitIndexes["split" + firstNum + secondNum] = startIndex++;
+    }
+  }
+  
+  for(let j = 3; j > 1; j--) {
+    for(let i = 1; i < 13; i++) {
+      let firstNum = (j + (3 * (i-1)));
+      let secondNum = firstNum - 1;
+  
+      splitIndexes["split" + secondNum + firstNum] = startIndex++;
+    }
+  }
+}
+
+generateSplitIndexes();
 
 class Board extends Component {
   state = {
@@ -229,7 +270,6 @@ class Board extends Component {
 
   generateButtonStyles = (results) => {
     let buttonStyle = {};
-    // console.log(`results: ${JSON.stringify(results, null, 2)}`);
 
     for (let i = 0; i < this.state.status.length; i++) {
       buttonStyle[i] = { chipColor: "../../../images/torquoisePokerChip.png", visible: false };
@@ -254,9 +294,92 @@ class Board extends Component {
       }
     }
 
-    console.log(`results.fiveBestNumbers[j]: ${JSON.stringify(results.fiveBestNumbers, null, 2)}`);
-    console.log(`results.fiveWorstNumbers[j]: ${JSON.stringify(results.fiveWorstNumbers, null, 2)}`);
+    const RED_INDEX = 46;
+    const BLACK_INDEX = 47;
+    if(buttonStyle[RED_INDEX] && results.redBlackWinsArray[0].hits > 50 && ( results.redBlackWinsArray[0].hits > (results.redBlackWinsArray[1].hits + 5 ) ) ) {
+      buttonStyle[RED_INDEX].visible = true;
+      buttonStyle[RED_INDEX].chipColor = "../../../images/redPokerChip.png";
 
+      buttonStyle[BLACK_INDEX].visible = true;
+      buttonStyle[BLACK_INDEX].chipColor = "../../../images/purplePokerChip.png";
+    } else if(buttonStyle[RED_INDEX] && results.redBlackWinsArray[1].hits > 50 && ( results.redBlackWinsArray[1].hits > (results.redBlackWinsArray[0].hits + 5 ) ) ){
+      buttonStyle[BLACK_INDEX].visible = true;
+      buttonStyle[BLACK_INDEX].chipColor = "../../../images/redPokerChip.png";
+
+      buttonStyle[RED_INDEX].visible = true;
+      buttonStyle[RED_INDEX].chipColor = "../../../images/purplePokerChip.png";
+
+    }
+
+    const EVEN_INDEX = 45;
+    const ODD_INDEX = 48;
+    if(buttonStyle[EVEN_INDEX] && results.oddEvenWinsArray[1].hits > 50 && ( results.oddEvenWinsArray[1].hits > (results.oddEvenWinsArray[0].hits + 5 ) ) ) {
+      buttonStyle[EVEN_INDEX].visible = true;
+      buttonStyle[EVEN_INDEX].chipColor = "../../../images/redPokerChip.png";
+
+      buttonStyle[ODD_INDEX].visible = true;
+      buttonStyle[ODD_INDEX].chipColor = "../../../images/purplePokerChip.png";
+    } else if(buttonStyle[RED_INDEX] && results.oddEvenWinsArray[0].hits > 50 && ( results.oddEvenWinsArray[0].hits > (results.oddEvenWinsArray[1].hits + 5 ) ) ){
+      buttonStyle[ODD_INDEX].visible = true;
+      buttonStyle[ODD_INDEX].chipColor = "../../../images/redPokerChip.png";
+
+      buttonStyle[EVEN_INDEX].visible = true;
+      buttonStyle[EVEN_INDEX].chipColor = "../../../images/purplePokerChip.png";
+    }
+
+    for(let i = 0; i < 3; i++) {
+      let splitIndex = splitIndexes[results.splitWinsArray[i].name];
+      // console.log(`name: ${results.splitWinsArray[i].name} num: ${results.splitWinsArray[i].nums}`)
+
+      // console.log(`winners splitIndex: ${splitIndex}`)
+      // console.log(`winners: ${results.splitWinsArray[i].name}`)
+
+      if(buttonStyle[splitIndex]) {
+        buttonStyle[splitIndex].visible = true;
+        buttonStyle[splitIndex].chipColor = "../../../images/redPokerChip.png";  
+      }
+    }
+
+    // console.log(`length: ${results.splitWinsArray.length}`);
+    for(let i = results.splitWinsArray.length - 1; i > results.splitWinsArray.length - 4; i--) {
+      let splitIndex = splitIndexes[results.splitWinsArray[i].name];
+      // console.log(`losers splitIndex: ${splitIndex}`)
+      // console.log(`losers: ${results.splitWinsArray[i].name}`)
+
+      if(buttonStyle[splitIndex]) {
+        buttonStyle[splitIndex].visible = true;
+        buttonStyle[splitIndex].chipColor = "../../../images/purplePokerChip.png";  
+      }
+    }
+
+    for(let i = 0; i < 3; i++) {
+      let splitIndex = cornerIndexes[results.cornerWinsArray[i].name];
+      console.log(`winner: ${results.cornerWinsArray[i].name} num: ${results.cornerWinsArray[i].nums}`)
+
+      // console.log(`winners splitIndex: ${splitIndex}`)
+      // console.log(`winners: ${results.splitWinsArray[i].name}`)
+
+      if(buttonStyle[splitIndex]) {
+        buttonStyle[splitIndex].visible = true;
+        buttonStyle[splitIndex].chipColor = "../../../images/redPokerChip.png";  
+      }
+    }
+
+    // console.log(`length: ${results.splitWinsArray.length}`);
+    for(let i = results.cornerWinsArray.length - 1; i > results.cornerWinsArray.length - 4; i--) {
+      let splitIndex = cornerIndexes[results.cornerWinsArray[i].name];
+      // console.log(`losers splitIndex: ${splitIndex}`)
+      console.log(`losers: ${results.cornerWinsArray[i].name}`)
+
+      if(buttonStyle[splitIndex]) {
+        buttonStyle[splitIndex].visible = true;
+        buttonStyle[splitIndex].chipColor = "../../../images/purplePokerChip.png";  
+      }
+    }
+    
+ 
+
+    // console.log(`splitWinsArray: ${JSON.stringify(results.splitWinsArray, null, 2)}`);
     return (buttonStyle);
   }
 

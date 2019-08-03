@@ -12,6 +12,13 @@ var fiveBestNumbers = [];
 var moneyWinnersSorted = [];
 var lastHitsArray = [];
 var letItRideArray = [];
+var redBlackWinsArray = [];
+var splitWinsArray = [];
+var oddEvenWinsArray = [];
+var cornerWinsArray = [];
+let splitWinsTop3 = [];
+
+
 // wheelSpins controls how many time the wheel is spun.  We can allow user input to set the value    
 var wheelSpins = 100;
 
@@ -33,7 +40,7 @@ function numberSort(x, y) {
 function numberSort2(x, y) {
     return y - x;
 }
-//fuction populates the rolls array with each wheel spin and tracks the number of hits for each number in hits object
+//function populates the rolls array with each wheel spin and tracks the number of hits for each number in hits object
 function createSpins() {
     var j = 0;
     rolls = []
@@ -138,22 +145,24 @@ function rollUntilHit() {
 }
 
 function split(name, num1, num2) {
-    this.name = name;
+    this.name = "split" + num1 + num2;
     this.nums = [num1, num2];
     this.hits = 0;
 }; //two adjoining
 
 function splitWins() {
-    var splitWinsArray = [];
+    splitWinsArray = [];
     splitWinObjects(splitWinsArray);
     for (var i = 0; i < rolls.length; i++) {
-        //// console.log(rolls[i]);
         for (var j = 0; j < splitWinsArray.length; j++) {
             if (splitWinsArray[j].nums.includes(rolls[i])) {
                 splitWinsArray[j].hits++;
             }
         }
     }
+
+    splitWinsArray.sort((first, second) => { return second.hits - first.hits; })
+    
     for (var k = 0; k < splitWinsArray.length; k++) {
         //console.log(splitWinsArray[k].name + " " + " " + splitWinsArray[k].hits);
     }
@@ -403,7 +412,8 @@ function corner(name, num1, num2, num3, num4) {
 };//four touching at a corner
 
 function cornerWins() {
-    var cornerWinsArray = [];
+    cornerWinsArray = [];
+
     cornerWinObjects(cornerWinsArray);
     for (var i = 0; i < rolls.length; i++) {
         //console.log(rolls[i]);
@@ -700,12 +710,12 @@ function oddEven(name, num1, num2, num3, num4, num5, num6, num7, num8, num9, num
     this.nums = [num1, num2, num3, num4, num5, num6, num7, num8, num9, num10, num11, num12, num13, num14, num15, num16, num17, num18];
     this.hits = 0;
 }
+
 function oddEvenWins() {
-    var oddEvenWinsArray = [];
+    oddEvenWinsArray = [];
     oddEvenWinObjects(oddEvenWinsArray);
-    var rollsJim=0;
+
     for (var i = 0; i < rolls.length; i++) {
-        rollsJim++
         //console.log(rolls[i]);
         for (var j = 0; j < oddEvenWinsArray.length; j++) {
             if (oddEvenWinsArray[j].nums.includes(rolls[i])) {
@@ -732,8 +742,9 @@ function redBlack(name, num1, num2, num3, num4, num5, num6, num7, num8, num9, nu
     this.hits = 0;
 };//self-explanatory 
 
+
 function redBlackWins() {
-    var redBlackWinsArray = [];
+    redBlackWinsArray = [];
     redBlackWinObjects(redBlackWinsArray);
     for (var i = 0; i < rolls.length; i++) {
         for (var j = 0; j < redBlackWinsArray.length; j++) {
@@ -742,9 +753,9 @@ function redBlackWins() {
             }
         }
     }
-    for (var k = 0; k < redBlackWinsArray.length; k++) {
-        console.log(redBlackWinsArray[k].name + " " + " " + redBlackWinsArray[k].hits);
-    }
+    // for (var k = 0; k < redBlackWinsArray.length; k++) {
+    //     console.log(redBlackWinsArray[k].name + " " + " " + redBlackWinsArray[k].hits);
+    // }
 }
 
 function redBlackWinObjects(redBlackWinsArray) {
@@ -767,6 +778,9 @@ export function conglomerate() {
     Jackie();
     rollUntilHit();
     splitWins();
+    redBlackWins();
+    oddEvenWins();
+    cornerWins();
 
     let results = {
         rolls: rolls,
@@ -778,7 +792,11 @@ export function conglomerate() {
         fiveBestNumbers: fiveBestNumbers,
         moneyWinnersSorted: moneyWinnersSorted,
         lastHitsArray: lastHitsArray,
-        letItRideArray: letItRideArray
+        letItRideArray: letItRideArray,
+        redBlackWinsArray: redBlackWinsArray,
+        oddEvenWinsArray: oddEvenWinsArray,
+        splitWinsArray: splitWinsArray,
+        cornerWinsArray: cornerWinsArray
     }
 
     return results;
