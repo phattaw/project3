@@ -27,33 +27,32 @@ function Area(props) {
         position: "absolute"
     };  
 
-    let defaultZ = {
-        zIndex: 2,
-        position: "absolute"
         
-    }
-
-    if(props.visible) {
-        console.log(`props.id: ${props.id}`);
-        defaultZ.zIndex = 2;
-    }
-
     let touchableStyle = {
         zIndex: 3,
         position: "absolute"
     }
 
-
-    return (
-            <div className="overlay" style={imgStyle}>
-            <div style={touchableStyle}>
-                
-                <area style={touchableStyle} key={props.id} shape="rect" coords={props.coords} ></area>
-            </div>
-                <img className="icon" style={defaultZ} src="../../../images/pokerChip.png" width="50px"></img>
-            </div>
-        
-    );
+    // console.log(`imgStyle: ${JSON.stringify(imgStyle, null, 2)}`);
+    let id = props.id;
+    if(props.visible || (props.buttonStyle[props.id - 1] && props.buttonStyle[props.id - 1].visible)) {
+        console.log(`props.visible: ${id}`);
+        // if(props.buttonStyle[props.tileId]) {
+        //     defaultZ.borderColor = props.buttonStyle[props.tileId].borderColor;
+        // }
+    
+        return (
+            // <div width="50px" height="50px" style={imgStyle}>
+                <img className="icon" style={imgStyle} src={props.buttonStyle[props.id - 1].chipColor} width="50px" onClick={() => props.passedOnClick(props.id)}></img>
+            // </div>
+        )
+    } else {
+        return (
+            // <div style={touchableStyle}>
+                <area style={touchableStyle} key={props.id} shape="rect" coords={props.coords} onClick={() => props.passedOnClick(props.id)}></area>
+            // </div>
+        );    
+    }
 }
 
 export default Area;

@@ -173,24 +173,11 @@ class Board extends Component {
   }
 
   loadTiles = () => {
-    let rows = [];
-    let buttonStyle = {};
-
-    for (let i = 0; i < 12; i++) {
-      rows.push({ id: i * 3, clickTile: this.clickTile });
-    }
-
-    for (let i = 0; i < 50; i++) {
-      buttonStyle[i] = { borderColor: "white" };
-    }
-
+    let spinResults = conglomerate();
     let touchableRects = this.generateTouchableRects();
-
-    conglomerate();
-    // let test_results = results();
-    // console.log(`test_results: ${JSON.stringify(test_results, null, 2)}`);
-
-    this.setState({ currentTiles: rows, buttonStyles: buttonStyle, touchableRects: touchableRects });
+    let buttonStyles = this.generateButtonStyles(spinResults);
+    
+    this.setState({ buttonStyles: buttonStyles, touchableRects: touchableRects });
   };
 
   clickTile = id => {
@@ -208,9 +195,10 @@ class Board extends Component {
 
   generateButtonStyles = (results) => {
     let buttonStyle = {};
+    console.log(`results: ${JSON.stringify(results, null, 2)}`);
 
     for (let i = 0; i < this.state.status.length; i++) {
-      buttonStyle[i] = { borderColor: "white", boxShadow: "none" };
+      buttonStyle[i] = { chipColor: "../../../images/torquoisePokerChip.png", visible: false };
     }
 
     // switch(props.buttonStyle) {
@@ -246,12 +234,15 @@ class Board extends Component {
       for (let j = 0; j < results.nateNumbers.length; j++) {
         if (parseInt(results.nateNumbers[j].numberH) === i) {
           // console.log(`results.nateNumbers: ${JSON.stringify(results.nateNumbers[j].numberH, null, 2)}`);
-          buttonStyle[i].borderColor = "orange";
+          // buttonStyle[i].borderColor = "orange";
           // buttonStyle[i].boxShadow = "0 6px 6px -2px purple, 0 8px 8px -4px yellow";
           // Bottom right
           // buttonStyle[i].boxShadow = "2px 2px 2px blue, 5px 5px 5px orange";
           // top right
-          buttonStyle[i].boxShadow = "2px -2px 2px blue, 5px -5px 5px orange";
+          // buttonStyle[i].boxShadow = "2px -2px 2px blue, 5px -5px 5px orange";
+          buttonStyle[i].chipColor = "../../../images/orangePokerChip.png";
+          buttonStyle[i].visible = true;
+
           // Left top right
           // buttonStyle[i].boxShadow = "0px -2px 0px 2px blue, 0px -5px 0px 4px orange";
           // left right bottom
@@ -266,11 +257,13 @@ class Board extends Component {
         if (parseInt(results.lucyLosers[j].numberH) === i) {
           // console.log(`results.lucyLosers: ${JSON.stringify(results.lucyLosers[j].numberH, null, 2)}`);
 
-          buttonStyle[i].borderColor = "blue";
+          // buttonStyle[i].borderColor = "blue";
+          buttonStyle[i].chipColor = "../../../images/pokerChip.png";
+          buttonStyle[i].visible = true;
           // top left
           // buttonStyle[i].boxShadow = "-2px -2px 2px pink, -5px -5px 5px blue";
           // bottom left
-          buttonStyle[i].boxShadow = "-2px 2px 2px pink, -5px 5px 5px blue";
+          // buttonStyle[i].boxShadow = "-2px 2px 2px pink, -5px 5px 5px blue";
           // left top bottom
           // buttonStyle[i].boxShadow = "-2px 0px 0px 2px pink, -5px 0px 0px 4px blue";
           // top right bottom
@@ -283,7 +276,7 @@ class Board extends Component {
   }
 
   render() {
-    console.log(`this.state.status[touchable.id].clicked: ${this.state.status}`);
+    // console.log(`this.state.status[touchable.id].clicked: ${this.state.status}`);
 
     if(this.state.status.length > 0) {
       return (
@@ -293,7 +286,16 @@ class Board extends Component {
             {
               this.state.touchableRects.map(touchable =>
                 (
-                  <Area visible={this.state.status[touchable.id - 1].clicked} key={touchable.id} chipVisible={false} id={touchable.id} coords={touchable.coordinates} numCoords={touchable.numCoordinates} passedOnClick={this.clickTile}></Area>
+                  <Area visible={this.state.status[touchable.id - 1].clicked} 
+                        key={touchable.id} 
+                        chipVisible={false} 
+                        id={touchable.id} 
+                        coords={touchable.coordinates} 
+                        numCoords={touchable.numCoordinates} 
+                        passedOnClick={this.clickTile}
+                        buttonStyle={this.state.buttonStyles} 
+                        >
+                  </Area>
                 )
             )}
           </map>
