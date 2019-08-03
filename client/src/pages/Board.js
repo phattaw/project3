@@ -14,7 +14,8 @@ class Board extends Component {
   state = {
     currentTiles: [],
     buttonStyles: {},
-    touchableRects: []
+    touchableRects: [],
+    status: []
   };
 
   componentDidMount() {
@@ -29,6 +30,7 @@ class Board extends Component {
     let right = 190;
     let bottom = 110;
     let id = 0;
+    let status = [];
 
     // All numbers and row 1/3rd bets
     for (let j = 0; j < 3; j++) {
@@ -57,8 +59,6 @@ class Board extends Component {
         id: id,
         type: "columnBet"
       }
-      touchableRects.push(coordinate);
-
     }
 
     // // 1/3rd bets
@@ -116,9 +116,16 @@ class Board extends Component {
           type: "split"
         }
 
-        touchableRects.push(splitCoordinate);      
-      }
-    }
+    // // Zero
+    // let zeroCoordinates = ""
+    // zeroCoordinates = "50,50,100,320";
+    // id++;
+    // let zeroCoordinate = {
+    //   coordinates: zeroCoordinates,
+    //   numCoordinates: { left: 50, top: 50, right: 100, bottom: 320 },
+    //   id: id,
+    //   type: "zero"
+    // }
 
     // // // Top/Bottom Split locations 125 to 210
     for(let j = 0; j < 2; j++) {
@@ -132,9 +139,22 @@ class Board extends Component {
           type: "split"
         }
 
-        touchableRects.push(splitCoordinate);      
-      }
-    }
+    // // Top/Bottom Split locations 125 to 210
+    // for(let j = 0; j < 2; j++) {
+    //   for(let i = 0; i < 11; i++) {
+    //     let splitCoordinates = (150 + 85 * i) + "," + (110 + 105*j) + "," + (185 + 85 * i) + "," + (130 + 105*j);
+    //     id++;
+    //     let splitCoordinate = {
+    //       coordinates: splitCoordinates,
+    //       numCoordinates: { left: 150 + 85 * i, top: 110 + 105*j, right: 185 + 85 * i, bottom: 130 + 105*j },
+    //       id: id,
+    //       type: "split"
+    //     }
+
+    //     touchableRects.push(splitCoordinate);      
+    //     status.push({ clicked: false });    
+    //   }
+    // }
     
     // // Square bet locations
     for(let j = 0; j < 2; j++) {
@@ -147,17 +167,13 @@ class Board extends Component {
           id: id,
           type: "square"
         }
+    this.setState({ status: status, touchableRects: touchableRects });
 
-        touchableRects.push(squareCoordinate);
-      }
-    }
-    
     return(touchableRects);
   }
 
   loadTiles = () => {
     let rows = [];
-    let status = [];
     let buttonStyle = {};
 
     for (let i = 0; i < 12; i++) {
@@ -165,7 +181,6 @@ class Board extends Component {
     }
 
     for (let i = 0; i < 50; i++) {
-      status.push({ clicked: false });
       buttonStyle[i] = { borderColor: "white" };
     }
 
@@ -175,15 +190,15 @@ class Board extends Component {
     // let test_results = results();
     // console.log(`test_results: ${JSON.stringify(test_results, null, 2)}`);
 
-    this.setState({ currentTiles: rows, status: status, buttonStyles: buttonStyle, touchableRects: touchableRects });
+    this.setState({ currentTiles: rows, buttonStyles: buttonStyle, touchableRects: touchableRects });
   };
 
   clickTile = id => {
+    console.log(`id: ${id - 1}`);
+
     this.state.status[id - 1].clicked = !this.state.status[id - 1].clicked;
 
     let spinResults = conglomerate();
-    // console.log(`clickTile spinResults: ${JSON.stringify(spinResults, null, 2)}`);
-
     let buttonStyles = this.generateButtonStyles(spinResults);
     let touchableRects = this.generateTouchableRects();
 
@@ -230,7 +245,7 @@ class Board extends Component {
     for (let i = 0; i < this.state.status.length; i++) {
       for (let j = 0; j < results.nateNumbers.length; j++) {
         if (parseInt(results.nateNumbers[j].numberH) === i) {
-          console.log(`results.nateNumbers: ${JSON.stringify(results.nateNumbers[j].numberH, null, 2)}`);
+          // console.log(`results.nateNumbers: ${JSON.stringify(results.nateNumbers[j].numberH, null, 2)}`);
           buttonStyle[i].borderColor = "orange";
           // buttonStyle[i].boxShadow = "0 6px 6px -2px purple, 0 8px 8px -4px yellow";
           // Bottom right
@@ -249,7 +264,7 @@ class Board extends Component {
       for (let j = 0; j < results.lucyLosers.length; j++) {
 
         if (parseInt(results.lucyLosers[j].numberH) === i) {
-          console.log(`results.lucyLosers: ${JSON.stringify(results.lucyLosers[j].numberH, null, 2)}`);
+          // console.log(`results.lucyLosers: ${JSON.stringify(results.lucyLosers[j].numberH, null, 2)}`);
 
           buttonStyle[i].borderColor = "blue";
           // top left
@@ -268,19 +283,29 @@ class Board extends Component {
   }
 
   render() {
-    return (
-      <Container fluid>
-        <img src="../../../images/rouletteLayout.png" alt="Planets" useMap="#rouletteMap"></img>
-        <map name="rouletteMap">
-          {
-            this.state.touchableRects.map(touchable =>
-              (
-                <Area key={touchable.id} coords={touchable.coordinates} numCoords={touchable.numCoordinates}></Area>
-              )
-          )}
-        </map>
-      </Container>
-    );
+    console.log(`this.state.status[touchable.id].clicked: ${this.state.status}`);
+
+    if(this.state.status.length > 0) {
+      return (
+        <Container fluid>
+          <img src="../../../images/rouletteLayout.png" width="1200" height="576" alt="Planets" useMap="#rouletteMap"></img>
+          <map name="rouletteMap">
+            {
+              this.state.touchableRects.map(touchable =>
+                (
+                  <Area visible={this.state.status[touchable.id - 1].clicked} key={touchable.id} chipVisible={false} id={touchable.id} coords={touchable.coordinates} numCoords={touchable.numCoordinates} passedOnClick={this.clickTile}></Area>
+                )
+            )}
+          </map>
+        </Container>
+      );  
+    } else {
+      return (
+        <Container fluid>
+
+        </Container>
+      );
+    }
   }
 }
 

@@ -33,13 +33,17 @@ function Area(props) {
         
     }
 
+    if(props.visible) {
+        console.log(`props.id: ${props.id}`);
+        defaultZ.zIndex = 2;
+    }
+
     let touchableStyle = {
         zIndex: 3,
         position: "absolute"
     }
 
-    // console.log(`imgStyle: ${JSON.stringify(imgStyle, null, 2)}`);
-    
+
     return (
             <div className="overlay" style={imgStyle}>
             <div style={touchableStyle}>
