@@ -17,7 +17,9 @@ var splitWinsArray = [];
 var oddEvenWinsArray = [];
 var cornerWinsArray = [];
 let splitWinsTop3 = [];
-
+let highLowWinsArray = [];
+let dozensWinsArray = [];
+let columnsWinsArray = [];
 
 // wheelSpins controls how many time the wheel is spun.  We can allow user input to set the value    
 var wheelSpins = 100;
@@ -618,7 +620,7 @@ function columns(name, num1, num2, num3, num4, num5, num6, num7, num8, num9, num
     this.hits = 0;
 };//groups of twelve consecutive numbers
 function columnsWins() {
-    var columnsWinsArray = [];
+    columnsWinsArray = [];
     columnsWinObjects(columnsWinsArray);
     for (var i = 0; i < rolls.length; i++) {
         for (var j = 0; j < columnsWinsArray.length; j++) {
@@ -650,7 +652,7 @@ function dozens(name, num1, num2, num3, num4, num5, num6, num7, num8, num9, num1
     this.hits = 0;
 };//groups of twelve consecutive numbers
 function dozensWins() {
-    var dozensWinsArray = [];
+    dozensWinsArray = [];
     dozensWinObjects(dozensWinsArray);
     for (var i = 0; i < rolls.length; i++) {
         for (var j = 0; j < dozensWinsArray.length; j++) {
@@ -682,9 +684,9 @@ function highLow(name, num1, num2, num3, num4, num5, num6, num7, num8, num9, num
     this.hits = 0;
 }
 function highLowWins() {
-    var highLowWinsArray = [];
+    highLowWinsArray = [];
     highLowWinObjects(highLowWinsArray);
-    var rollsJim=0;
+
     for (var i = 0; i < rolls.length; i++) {
         for (var j = 0; j < highLowWinsArray.length; j++) {
             if (highLowWinsArray[j].nums.includes(rolls[i])) {
@@ -781,6 +783,9 @@ export function conglomerate() {
     redBlackWins();
     oddEvenWins();
     cornerWins();
+    highLowWins();
+    dozensWins();
+    columnsWins();
 
     let results = {
         rolls: rolls,
@@ -796,7 +801,10 @@ export function conglomerate() {
         redBlackWinsArray: redBlackWinsArray,
         oddEvenWinsArray: oddEvenWinsArray,
         splitWinsArray: splitWinsArray,
-        cornerWinsArray: cornerWinsArray
+        cornerWinsArray: cornerWinsArray,
+        highLowWinsArray: highLowWinsArray,
+        dozensWinsArray: dozensWinsArray,
+        columnsWinsArray: columnsWinsArray
     }
 
     return results;

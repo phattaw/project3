@@ -327,12 +327,77 @@ class Board extends Component {
       buttonStyle[EVEN_INDEX].chipColor = "../../../images/purplePokerChip.png";
     }
 
+    const LOW_INDEX = 44;
+    const HIGH_INDEX = 49;
+    if(buttonStyle[LOW_INDEX] && results.highLowWinsArray[0].hits > 50 && ( results.highLowWinsArray[0].hits > (results.highLowWinsArray[1].hits + 5 ) ) ) {
+      buttonStyle[LOW_INDEX].visible = true;
+      buttonStyle[LOW_INDEX].chipColor = "../../../images/redPokerChip.png";
+
+      buttonStyle[HIGH_INDEX].visible = true;
+      buttonStyle[HIGH_INDEX].chipColor = "../../../images/purplePokerChip.png";
+    } else if(buttonStyle[RED_INDEX] && results.highLowWinsArray[1].hits > 50 && ( results.highLowWinsArray[1].hits > (results.highLowWinsArray[0].hits + 5 ) ) ){
+      buttonStyle[HIGH_INDEX].visible = true;
+      buttonStyle[HIGH_INDEX].chipColor = "../../../images/redPokerChip.png";
+
+      buttonStyle[LOW_INDEX].visible = true;
+      buttonStyle[LOW_INDEX].chipColor = "../../../images/purplePokerChip.png";
+    }
+
+    let large_val = 0;
+    let large_idx = 0;
+    let small_val = 1000000;
+    let small_idx = 0;
+    for(let i = 0; i < 3; i++) {
+      if(large_val < results.dozensWinsArray[i].hits) {
+        large_val = results.dozensWinsArray[i].hits;
+        large_idx = i;
+      }
+
+      if(small_val > results.dozensWinsArray[i].hits) {
+        small_val = results.dozensWinsArray[i].hits;
+        small_idx = i;
+      }
+    }
+
+    const FIRST_12_IDX = 41;
+
+    if(buttonStyle[FIRST_12_IDX + large_idx]) {
+      buttonStyle[FIRST_12_IDX + large_idx].visible = true;
+      buttonStyle[FIRST_12_IDX + large_idx].chipColor = "../../../images/redPokerChip.png";
+  
+      buttonStyle[FIRST_12_IDX + small_idx].visible = true;
+      buttonStyle[FIRST_12_IDX + small_idx].chipColor = "../../../images/purplePokerChip.png";  
+    }
+
+
+    large_val = 0;
+    large_idx = 0;
+    small_val = 1000000;
+    small_idx = 0;
+    for(let i = 0; i < 3; i++) {
+      if(large_val < results.columnsWinsArray[i].hits) {
+        large_val = results.columnsWinsArray[i].hits;
+        large_idx = i;
+      }
+
+      if(small_val > results.columnsWinsArray[i].hits) {
+        small_val = results.columnsWinsArray[i].hits;
+        small_idx = i;
+      }
+    }
+
+    const COL_12_IDX = 38;
+
+    if(buttonStyle[COL_12_IDX + large_idx]) {
+      buttonStyle[COL_12_IDX + large_idx].visible = true;
+      buttonStyle[COL_12_IDX + large_idx].chipColor = "../../../images/redPokerChip.png";
+  
+      buttonStyle[COL_12_IDX + small_idx].visible = true;
+      buttonStyle[COL_12_IDX + small_idx].chipColor = "../../../images/purplePokerChip.png";  
+    }
+    
     for(let i = 0; i < 3; i++) {
       let splitIndex = splitIndexes[results.splitWinsArray[i].name];
-      // console.log(`name: ${results.splitWinsArray[i].name} num: ${results.splitWinsArray[i].nums}`)
-
-      // console.log(`winners splitIndex: ${splitIndex}`)
-      // console.log(`winners: ${results.splitWinsArray[i].name}`)
 
       if(buttonStyle[splitIndex]) {
         buttonStyle[splitIndex].visible = true;
@@ -340,11 +405,8 @@ class Board extends Component {
       }
     }
 
-    // console.log(`length: ${results.splitWinsArray.length}`);
     for(let i = results.splitWinsArray.length - 1; i > results.splitWinsArray.length - 4; i--) {
       let splitIndex = splitIndexes[results.splitWinsArray[i].name];
-      // console.log(`losers splitIndex: ${splitIndex}`)
-      // console.log(`losers: ${results.splitWinsArray[i].name}`)
 
       if(buttonStyle[splitIndex]) {
         buttonStyle[splitIndex].visible = true;
@@ -354,10 +416,6 @@ class Board extends Component {
 
     for(let i = 0; i < 3; i++) {
       let splitIndex = cornerIndexes[results.cornerWinsArray[i].name];
-      console.log(`winner: ${results.cornerWinsArray[i].name} num: ${results.cornerWinsArray[i].nums}`)
-
-      // console.log(`winners splitIndex: ${splitIndex}`)
-      // console.log(`winners: ${results.splitWinsArray[i].name}`)
 
       if(buttonStyle[splitIndex]) {
         buttonStyle[splitIndex].visible = true;
@@ -368,8 +426,6 @@ class Board extends Component {
     // console.log(`length: ${results.splitWinsArray.length}`);
     for(let i = results.cornerWinsArray.length - 1; i > results.cornerWinsArray.length - 4; i--) {
       let splitIndex = cornerIndexes[results.cornerWinsArray[i].name];
-      // console.log(`losers splitIndex: ${splitIndex}`)
-      console.log(`losers: ${results.cornerWinsArray[i].name}`)
 
       if(buttonStyle[splitIndex]) {
         buttonStyle[splitIndex].visible = true;
@@ -377,15 +433,10 @@ class Board extends Component {
       }
     }
     
- 
-
-    // console.log(`splitWinsArray: ${JSON.stringify(results.splitWinsArray, null, 2)}`);
     return (buttonStyle);
   }
 
   render() {
-    // console.log(`this.state.status[touchable.id].clicked: ${this.state.status}`);
-
     if(this.state.status.length > 0) {
       return (
         <Container fluid>
