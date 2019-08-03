@@ -25,11 +25,12 @@ function Area(props) {
         right: props.numCoords.right,
         zIndex: 2,
         position: "absolute"
-    };
+    };  
 
     let defaultZ = {
         zIndex: 2,
         position: "absolute"
+        
     }
 
     if(props.visible) {
@@ -42,24 +43,17 @@ function Area(props) {
         position: "absolute"
     }
 
-    // console.log(`imgStyle: ${JSON.stringify(imgStyle, null, 2)}`);
-    // let id = props.id;
-    // console.log(`props.id: ${id}`);
-    // if(props.visible) {
-        return (
+
+    return (
             <div className="overlay" style={imgStyle}>
-                <img className="icon" style={defaultZ} src="../../../images/pokerChip.png" width="50px" onClick={() => props.passedOnClick(props.id)}></img>
+            <div style={touchableStyle}>
+                
+                <area style={touchableStyle} key={props.id} shape="rect" coords={props.coords} ></area>
             </div>
-        )
-    // } else {
-    //     return (
-    //         <div style={touchableStyle}>
-    //             <area style={touchableStyle} key={props.id} shape="rect" coords={props.coords} onClick={() => props.passedOnClick(props.id)}></area>
-    //         </div>
-    //     );    
-    // }
-
-
+                <img className="icon" style={defaultZ} src="../../../images/pokerChip.png" width="50px"></img>
+            </div>
+        
+    );
 }
 
 export default Area;

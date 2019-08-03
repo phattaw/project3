@@ -40,61 +40,81 @@ class Board extends Component {
         id++;
         let coordinate = {
           coordinates: coordinates,
-          numCoordinates: { left: left + 15 + 80 * i, top: top + 58 + j * 115, right: right + 15  + 80 * i, bottom: bottom + 58 + j * 115 },
+          numCoordinates: { left: left+ 15 + 82 * i, top: top + 58 + j * 115, right: right + 15 + 82 * i, bottom: bottom + 58 + j * 115 },
           id: id,
           type: "numbers"
         }
-        touchableRects.push(coordinate);        
-        status.push({ clicked: false });    
+        touchableRects.push(coordinate);
       }
     }
 
-    // // Column bets (end of number row)
-    // for(let j = 0; j < 3; j++) {
-    //   let coordinates = ""
-    //   coordinates = (left + 80 * 11) + "," + (top + j * 115) + "," + (right + 80 * 11) + "," + (bottom + j * 115);
-    //   id++;
-    //   let coordinate = {
-    //     coordinates: coordinates,
-    //     numCoordinates: { left: left + 80 * 11, top: top + j * 115, right: right + 80 * 11, bottom: bottom + j * 115 },
-    //     id: id,
-    //     type: "columnBet"
-    //   }
-    //   touchableRects.push(coordinate);
-    //   status.push({ clicked: false });    
+    // // Colum bets (end of number row)
+    for(let j = 0; j < 3; j++) {
+      let coordinates = ""
+      coordinates = (left + 80 * 11) + "," + (top + j * 115) + "," + (right + 80 * 11) + "," + (bottom + j * 115);
+      id++;
+      let coordinate = {
+        coordinates: coordinates,
+        numCoordinates: { left: left + 15 + 81 * 12, top: top + 58 + j * 115, right: right +15 + 81 * 12, bottom: bottom + 58 + j * 115 },
+        id: id,
+        type: "columnBet"
+      }
+    }
 
-    // }
     // // 1/3rd bets
-    // for(let i = 0; i < 3; i++) {
-    //   let coordinates = ""
-    //   coordinates = (150 + 325 * i) + "," + 370 + "," + (420 + 325 * i) + "," + 425;
-    //   id++;
-    //   let coordinate = {
-    //     coordinates: coordinates,
-    //     numCoordinates: { left: 150 + 325 * i, top: 370, right: 420 + 325 * i, bottom: 425 },
-    //     id: id,
-    //     type: "oneThird"
-    //   }
+    for(let i = 0; i < 3; i++) {
+      let coordinates = ""
+      coordinates = (150 + 325 * i) + "," + 370 + "," + (420 + 325 * i) + "," + 425;
+      id++;
+      let coordinate = {
+        coordinates: coordinates,
+        numCoordinates: { left: 150 + 135 + 325 * i, top: 370 + 58 , right: 420 + 135 + 325 * i, bottom: 425 + 58 },
+        id: id,
+        type: "oneThird"
+      }
 
-    //   touchableRects.push(coordinate);
-    //   status.push({ clicked: false });    
-    // }
+      touchableRects.push(coordinate);
+    }
 
     // // 50/50 bets
-    // for(let i = 0; i < 6; i++) {
-    //   let coordinates = ""
-    //   coordinates = (150 + 160 * i) + "," + 475 + "," + (270 + 160 * i) + "," + 545;
-    //   id++;
-    //   let coordinate = {
-    //     coordinates: coordinates,
-    //     numCoordinates: { left: 150 + 160 * i, top: 475, right: 270 + 160 * i, bottom: 545 },
-    //     id: id,
-    //     type: "fiftyfifty"
-    //   }
+    for(let i = 0; i < 6; i++) {
+      let coordinates = ""
+      coordinates = (150 + 160 * i) + "," + 475 + "," + (270 + 160 * i) + "," + 545;
+      id++;
+      let coordinate = {
+        coordinates: coordinates,
+        numCoordinates: { left: 150 + 50 + 162 * i, top: 475 + 58, right: 270 + 50 + 162 * i, bottom: 545 + 58 },
+        id: id,
+        type: "fiftyfifty"
+      }
 
-    //   touchableRects.push(coordinate);
-    //   status.push({ clicked: false });    
-    // }
+      touchableRects.push(coordinate);
+    }
+
+    // // Zero
+    let zeroCoordinates = ""
+    zeroCoordinates = "50,50,100,320";
+    id++;
+    let zeroCoordinate = {
+      coordinates: zeroCoordinates,
+      numCoordinates: { left: 75, top: 180, right: 100, bottom: 320 },
+      id: id,
+      type: "zero"
+    }
+
+    touchableRects.push(zeroCoordinate);
+
+    // // Left/Right Split locations
+    for(let j = 0; j < 3; j++) {
+      for(let i = 0; i < 11; i++) {
+        let splitCoordinates = (200 + 80 * i) + "," + (50 + 100*j) + "," + (220 + 80 * i) + "," + (100 + 100*j);
+        id++;
+        let splitCoordinate = {
+          coordinates: splitCoordinates,
+          numCoordinates: { left: 200 + 81 * i, top: 50 + 56 + 102*j, right: 220 + 81 * i, bottom: 100 + 56 + 102*j },
+          id: id,
+          type: "split"
+        }
 
     // // Zero
     // let zeroCoordinates = ""
@@ -107,25 +127,17 @@ class Board extends Component {
     //   type: "zero"
     // }
 
-    // touchableRects.push(zeroCoordinate);
-    // status.push({ clicked: false });    
-
-    // // Left/Right Split locations
-    // for(let j = 0; j < 3; j++) {
-    //   for(let i = 0; i < 11; i++) {
-    //     let splitCoordinates = (200 + 80 * i) + "," + (50 + 100*j) + "," + (220 + 80 * i) + "," + (100 + 100*j);
-    //     id++;
-    //     let splitCoordinate = {
-    //       coordinates: splitCoordinates,
-    //       numCoordinates: { left: 200 + 80 * i, top: 50 + 100*j, right: 220 + 80 * i, bottom: 100 + 100*j },
-    //       id: id,
-    //       type: "split"
-    //     }
-
-    //     touchableRects.push(splitCoordinate);      
-    //     status.push({ clicked: false });    
-    //   }
-    // }
+    // // // Top/Bottom Split locations 125 to 210
+    for(let j = 0; j < 2; j++) {
+      for(let i = 0; i < 12; i++) {
+        let splitCoordinates = (150 + 85 * i) + "," + (110 + 105*j) + "," + (185 + 85 * i) + "," + (130 + 105*j);
+        id++;
+        let splitCoordinate = {
+          coordinates: splitCoordinates,
+          numCoordinates: { left: 160 + 81.5 * i, top: 110 + 50 + 105*j, right: 160 + 100 * i, bottom: 130 + 50 + 102*j },
+          id: id,
+          type: "split"
+        }
 
     // // Top/Bottom Split locations 125 to 210
     // for(let j = 0; j < 2; j++) {
@@ -145,22 +157,16 @@ class Board extends Component {
     // }
     
     // // Square bet locations
-    // for(let j = 0; j < 3; j++) {
-    //   for(let i = 0; i < 11; i++) {
-    //     let squareCoordinates = (200 + 81 * i) + "," + (115 + 110*j) + "," + (220 + 81 * i) + "," + (135 + 110*j);
-    //     id++;
-    //     let squareCoordinate = {
-    //       coordinates: squareCoordinates,
-    //       numCoordinates: { left: 200 + 81 * i, top: 115 + 110*j, right: 220 + 81 * i, bottom: 135 + 110*j },
-    //       id: id,
-    //       type: "square"
-    //     }
-
-    //     touchableRects.push(squareCoordinate);
-    //     status.push({ clicked: false });    
-    //   }
-    // }
-
+    for(let j = 0; j < 2; j++) {
+      for(let i = 0; i < 11; i++) {
+        let squareCoordinates = (200 + 81 * i) + "," + (115 + 110*j) + "," + (220 + 81 * i) + "," + (135 + 110*j);
+        id++;
+        let squareCoordinate = {
+          coordinates: squareCoordinates,
+          numCoordinates: { left: 200 + 81 * i, top: 155 + 110*j, right: 220 + 81 * i, bottom: 135 + 110*j },
+          id: id,
+          type: "square"
+        }
     this.setState({ status: status, touchableRects: touchableRects });
 
     return(touchableRects);

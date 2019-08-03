@@ -195,7 +195,7 @@ class App extends Component {
   render() {
     return (
       <div id="dropdown-basic-button" className="App">
-        <Navbar id="nav.link" color="light" light expand="md">
+        <Navbar id="nav.link" color="light" height="58px" light expand="md">
           <NavbarBrand href="/">Roulette</NavbarBrand>>
              <NavbarToggler onClick={this.toggle} />
           <Nav id="bar" className="ml-auto" navbar>
