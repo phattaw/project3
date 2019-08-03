@@ -208,32 +208,15 @@ class Board extends Component {
         status.push({ clicked: false });
       }
     }
-
-    // // Top/Bottom Split locations 125 to 210
-    // for(let j = 0; j < 2; j++) {
-    //   for(let i = 0; i < 11; i++) {
-    //     let splitCoordinates = (150 + 85 * i) + "," + (110 + 105*j) + "," + (185 + 85 * i) + "," + (130 + 105*j);
-    //     id++;
-    //     let splitCoordinate = {
-    //       coordinates: splitCoordinates,
-    //       numCoordinates: { left: 150 + 85 * i, top: 110 + 105*j, right: 185 + 85 * i, bottom: 130 + 105*j },
-    //       id: id,
-    //       type: "split"
-    //     }
-
-    //     touchableRects.push(splitCoordinate);      
-    //     status.push({ clicked: false });    
-    //   }
-    // }
     
     // Square bet locations
     for(let j = 0; j < 2; j++) {
       for(let i = 0; i < 11; i++) {
-        let squareCoordinates = (200 + 81 * i) + "," + (115 + 110*j) + "," + (220 + 81 * i) + "," + (135 + 110*j);
+        let squareCoordinates = (200 + 81 * i) + "," + (115 + 105*j) + "," + (220 + 81 * i) + "," + (135 + 105*j);
         id++;
         let squareCoordinate = {
           coordinates: squareCoordinates,
-          numCoordinates: { left: 200 + 81 * i, top: 155 + 110*j, right: 220 + 81 * i, bottom: 135 + 110*j },
+          numCoordinates: { left: 200 + 81 * i, top: 155 + 105*j, right: 220 + 81 * i, bottom: 135 + 105*j },
           id: id,
           type: "square"
         }
@@ -431,6 +414,11 @@ class Board extends Component {
         buttonStyle[splitIndex].visible = true;
         buttonStyle[splitIndex].chipColor = "../../../images/purplePokerChip.png";  
       }
+    }
+
+    if(buttonStyle[results.rolls[0]]) {
+      buttonStyle[results.rolls[0]].visible = true;
+      buttonStyle[ results.rolls[0] ].chipColor = "../../../images/winMarker.png";  
     }
     
     return (buttonStyle);
